@@ -26,6 +26,7 @@ class MainController extends Controller
     public function create()
     {
         //
+        return view('main.create');
     }
 
     /**
@@ -37,6 +38,16 @@ class MainController extends Controller
     public function store(Request $request)
     {
         //
+        dump($request);
+        $validatedData = $request->validate([
+            'title' => 'required|min:2',
+            'description' => 'required|min:10',
+        ]);
+        $main=new Main();
+        $main->title=$request->title;
+        $main->description=$request->description;
+        $main->save();
+        return $this->index();
     }
 
     /**
