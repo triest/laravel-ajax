@@ -1,6 +1,6 @@
 @extends('layouts.main', ['title' => 'Создать новость'])
 
-@section('content')
+
 @section('content')
     <form action="{{route('storeMain')}}" method="post" enctype="multipart/form-data" novalidate>
         {{ csrf_field() }}
@@ -21,10 +21,16 @@
             @endif
         </div>
         <br>
+        <input type="file" id="file" name="file" accept="image/x-png,image/gif,image/jpeg"
+               value="{{ old('file')}}" required>
+        @if($errors->has('file'))
+            <font color="red"><p>  {{$errors->first('file')}}</p></font>
+        @endif
+        <br>
 
+        <br><br>
         <button type="submit" class="btn btn-default">Создать текст</button>
     </form>
 
 @endsection
 
-@endsection
