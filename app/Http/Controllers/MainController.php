@@ -41,14 +41,15 @@ class MainController extends Controller
     public function index()
     {
         //
-        $main=Main::select([  'id',
+        $main = Main::select([
+            'id',
             'title',
             'description',
             'created_at',
-            'updated_at'])->first();
-        $images=$main->images();
-        dump($main);
-        return view('main.index')->with(['main'=>$main]);
+            'updated_at'
+        ])->first();
+        $images = $main->images();
+        return view('main.index')->with(['main' => $main]);
     }
 
     /**
@@ -78,17 +79,14 @@ class MainController extends Controller
         $main->title = $request->title;
         $main->description = $request->description;
         $main->save();
-        dump($request);
-
         if (Input::hasFile('images')) {
 
             foreach ($request->images as $key) {
                 $image_extension = $key->getClientOriginalExtension();
-                dump($image_extension);
                 $image_new_name = md5(microtime(true));
                 $key->move(public_path() . '/images/upload/', strtolower($image_new_name . '.' . $image_extension));
                 $image = new Image();
-                $image->image_name = $image_new_name. '.' . $image_extension;
+                $image->image_name = $image_new_name . '.' . $image_extension;
                 $main->images()->save($image);
                 $image->save();
             }
