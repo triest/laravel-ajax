@@ -41,7 +41,14 @@ class MainController extends Controller
     public function index()
     {
         //
-        return view('main.index');
+        $main=Main::select([  'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'])->first();
+        $images=$main->images();
+        dump($main);
+        return view('main.index')->with(['main'=>$main]);
     }
 
     /**
@@ -63,7 +70,6 @@ class MainController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request);
         $validatedData = $request->validate([
             'title' => 'required|min:2',
             'description' => 'required|min:10',
@@ -72,17 +78,17 @@ class MainController extends Controller
         $main->title = $request->title;
         $main->description = $request->description;
         $main->save();
-        if (Input::hasFile('images')) {
-            $count = 0;
-            foreach ($request->images as $key) {
-                dump($key);
+        dump($request);
 
+        if (Input::hasFile('images')) {
+
+            foreach ($request->images as $key) {
                 $image_extension = $key->getClientOriginalExtension();
                 dump($image_extension);
                 $image_new_name = md5(microtime(true));
                 $key->move(public_path() . '/images/upload/', strtolower($image_new_name . '.' . $image_extension));
                 $image = new Image();
-                $image->image_name = $image_new_name;
+                $image->image_name = $image_new_name. '.' . $image_extension;
                 $main->images()->save($image);
                 $image->save();
             }

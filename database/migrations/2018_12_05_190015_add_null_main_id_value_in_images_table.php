@@ -14,7 +14,7 @@ class AddNullMainIdValueInImagesTable extends Migration
     public function up()
     {
         Schema::table('images', function (Blueprint $table) {
-          //  $table->integer('main_id')->nullable()->change();
+            //  $table->integer('main_id')->nullable()->change();
         });
     }
 
