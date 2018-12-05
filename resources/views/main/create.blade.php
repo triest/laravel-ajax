@@ -21,16 +21,11 @@
             @endif
         </div>
         <br>
-        <input type="file" id="file" name="file" accept="image/x-png,image/gif,image/jpeg"
-               value="{{ old('file')}}" required>
-        @if($errors->has('file'))
-            <font color="red"><p>  {{$errors->first('file')}}</p></font>
-        @endif
-        <br>
+               <br>
 
         <table class="table table-bordered" id="dynamic_field">
             <tr>
-                <td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list"/></td>
+                <td><input type="file" name="images[]" placeholder="Enter your Name" class="form-control name_list"/></td>
                 <td>
                     <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
                 </td>
@@ -47,26 +42,13 @@
             var i = 1;
             $('#add').click(function () {
                 i++;
-                $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="images[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
             });
 
             $(document).on('click', '.btn_remove', function () {
                 var button_id = $(this).attr("id");
                 $('#row' + button_id + '').remove();
             });
-
-            $('#submit').click(function () {
-                $.ajax({
-                    url: "name.php",
-                    method: "POST",
-                    data: $('#add_name').serialize(),
-                    success: function (data) {
-                        alert(data);
-                        $('#add_name')[0].reset();
-                    }
-                });
-            });
-
         });
     </script>
 @endsection

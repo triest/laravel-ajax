@@ -13,8 +13,12 @@ class Image extends Model
         'id',
        'image_name',
         'main_id',
-        'description',
         'created_at',
         'updated_at'
     ];
+
+    public function main()
+    {
+        return $this->hasOne('App\Main');
+    }
 }

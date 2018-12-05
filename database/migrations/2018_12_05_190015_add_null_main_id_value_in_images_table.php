@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeginKeys4 extends Migration
+class AddNullMainIdValueInImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class AddForeginKeys4 extends Migration
      */
     public function up()
     {
-        //
         Schema::table('images', function (Blueprint $table) {
-            $table->foreign('edication_id')->references('id')->on('educations');
-        }
-        );
+          //  $table->integer('main_id')->nullable()->change();
+        });
     }
 
     /**
@@ -27,6 +25,8 @@ class AddForeginKeys4 extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('images', function (Blueprint $table) {
+            //
+        });
     }
 }

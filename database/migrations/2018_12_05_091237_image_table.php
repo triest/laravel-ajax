@@ -16,7 +16,7 @@ class ImageTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image_name', 50)->nullable(false);
-            $table->integer('main_id')->unsigned()->index();
+            $table->integer('main_id')->nullable()->unsigned()->index();
             $table->timestamps();
         });
         /*
