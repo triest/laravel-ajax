@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <form action="{{route('storeDid')}}" id="form"  enctype="multipart/form-data" method="post">
+    <form action="{{route('storeDid')}}" id="form" enctype="multipart/form-data" method="post" novalidate>
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Имя:</label>
@@ -38,17 +38,26 @@
         </select>
 
         <br><br>
-       <!-- <button type="submit" class="btn btn-default">Создать текст</button> -->
+        <!-- <button type="submit" class="btn btn-default">Создать текст</button> -->
         <input type="button" onclick="return f();" value="Send">
     </form>
     <script type="text/javascript">
         function f() {
-           
+          //  console.log("submit");
             var frm = $('#form');
-            frm.submit(function (e) {
-                console.log("submit");
-            })
+            var formData = $('#form').serializeArray() //serialize data from form
+         //   console.log(formData);
+            var att=frm.attr("action");
+         //   console.log(att);
+            $.ajax({
+                url: att,
+                data: formData,
+                type: 'POST'
+            }).done(function (data) {
+                console.log(data);
+            });
         }
+
 
 
     </script>
