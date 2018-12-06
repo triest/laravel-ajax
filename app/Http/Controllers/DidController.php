@@ -54,7 +54,23 @@ class DidController extends Controller
     public function store(Request $request)
     {
         //
-        return Response::json(['result' => 'ok']);
+        dump($request);
+        $did=new Did();
+        $did->name=$request->name;
+        $did->femili=$request->femili;
+        $did->email=$request->email;
+        $did->phone=$request->phone;
+        $did->descrption=$request->description;
+        dump($did);
+        $did->save();
+     //   $education=Education::find($request->education)->first();
+      //  dump($education);
+    //    die();
+
+       // dump($education);
+        $did->education()->save($education);
+        $did->save();
+        return Response::json(['result' => '200']);
     }
 
     /**

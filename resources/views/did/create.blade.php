@@ -30,6 +30,21 @@
                 <font color="red"><p>  {{$errors->first('femili')}}</p></font>
             @endif
         </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required="required"
+                   placeholder="Введите email"
+                   required  value={{ old('email') }} >
+            @if($errors->has('email'))
+                <font color="red"><p>  {{$errors->first('femili')}}</p></font>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputFile">Текст анкеты:</label>
+            <textarea name="description" id="description" required> {{old('description')}}</textarea>
+        </div>
+
         Образование:
         <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education">
             @foreach($educations as $education)
@@ -46,7 +61,7 @@
           //  console.log("submit");
             var frm = $('#form');
             var formData = $('#form').serializeArray() //serialize data from form
-         //   console.log(formData);
+            console.log(formData);
             var att=frm.attr("action");
          //   console.log(att);
             $.ajax({
@@ -54,7 +69,7 @@
                 data: formData,
                 type: 'POST'
             }).done(function (data) {
-                console.log(data);
+          //      console.log(data);
             });
         }
 

@@ -21,7 +21,7 @@ class Did extends Model
         'updated_at'
     ];
 
-    public function tags()
+    public function education()
     {
         return $this->belongsToMany(Edication::class);
     }

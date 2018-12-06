@@ -12,6 +12,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //did
 Route::get('/did', 'DidController@index')->name('did');
 
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');
     Route::post('main/store', 'MainController@store')->name('storeMain');
