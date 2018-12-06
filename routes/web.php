@@ -5,15 +5,16 @@ use Illuminate\Support\Facades\Input;
 
 Auth::routes();
 
-Route::get('/', 'MainController@index')->name('main');
+Route::get('/', 'MainController@rand')->name('main');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@rand')->name('home');
 
 //did
-Route::get('/did', 'DidController@index')->name('did');
+Route::get('/did', 'DidController@rand')->name('did');
 
 Route::get('/mail', 'DidController@sendMail')->name('mail');
 
+Route::get('rand', 'RandController@rand')->name('rand');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');
@@ -22,4 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('main/update', 'MainController@update')->name('updateMain');
     Route::get('did/create', 'DidController@create')->name('createDid');
     Route::post('did/store', 'DidController@store')->name('storeDid');
+
+    //рандомный контент
+
 });

@@ -53,7 +53,7 @@ class MainController extends Controller
             $images = $main->images();
         }
 
-        return view('main.index')->with(['main' => $main]);
+        return view('main.rand')->with(['main' => $main]);
     }
 
     /**
