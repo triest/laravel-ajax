@@ -80,15 +80,11 @@
                     503: function (request, status, error) {
                         console.log("503 - Server Problem");
                         console.log(error);
-                        alert("Проблем сервера.");
+                        alert("Проблема сервера.");
                     }
                 },
             }).done(function (data) {
                 console.log(data);
-
-
-                //   console.log(cod);
-
             });
         }
 
