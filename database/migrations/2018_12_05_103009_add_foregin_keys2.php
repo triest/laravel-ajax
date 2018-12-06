@@ -15,7 +15,7 @@ class AddForeginKeys2 extends Migration
     {
         //
         Schema::table('bids', function (Blueprint $table) {
-            $table->foreign('edication_id')->references('id')->on('educations');
+            $table->foreign('education_id')->references('id')->on('educations');
         }
         );
     }

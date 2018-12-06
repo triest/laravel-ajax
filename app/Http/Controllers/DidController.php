@@ -22,7 +22,7 @@ class DidController extends Controller
             'name',
             'phone',
             'email',
-            'edication_id',
+            'education_id',
             'femili',
             'description',
             'created_at',
@@ -60,15 +60,16 @@ class DidController extends Controller
         $did->femili=$request->femili;
         $did->email=$request->email;
         $did->phone=$request->phone;
-        $did->descrption=$request->description;
+        $did->description=$request->description;
         dump($did);
         $did->save();
-     //   $education=Education::find($request->education)->first();
+        $education=Education::find($request->education)->first();
       //  dump($education);
     //    die();
 
        // dump($education);
-        $did->education()->save($education);
+      //  $did->education()->save($education);
+        $education->did()->save($did);
         $did->save();
         return Response::json(['result' => '200']);
     }

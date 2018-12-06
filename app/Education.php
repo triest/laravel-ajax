@@ -15,4 +15,9 @@ class Education extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function did()
+    {
+        return $this->hasMany('App\Did');
+    }
 }

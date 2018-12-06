@@ -48,7 +48,11 @@ class MainController extends Controller
             'created_at',
             'updated_at'
         ])->first();
-        $images = $main->images();
+
+        if ($main != null) {
+            $images = $main->images();
+        }
+
         return view('main.index')->with(['main' => $main]);
     }
 

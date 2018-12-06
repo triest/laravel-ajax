@@ -14,7 +14,7 @@ class Did extends Model
         'name',
         'phone',
         'email',
-        'edication_id',
+        'education_id',
         'femili',
         'description',
         'created_at',
@@ -23,6 +23,6 @@ class Did extends Model
 
     public function education()
     {
-        return $this->belongsToMany(Edication::class);
+        return $this->hasOne('App\Education');
     }
 }

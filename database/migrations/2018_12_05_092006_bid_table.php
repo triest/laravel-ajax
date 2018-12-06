@@ -16,12 +16,12 @@ class BidTable extends Migration
         //
         Schema::create('bids', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50)->nullable(false);
-            $table->string('femili', 50)->nullable(false);
-            $table->string('phone', 50)->nullable(false);
-            $table->string('email', 50)->nullable(false);
-            $table->string('description', 3000)->nullable(false);
-            $table->integer('edication_id')->unsigned()->index();
+            $table->string('name', 50)->nullable(true);
+            $table->string('femili', 50)->nullable(true);
+            $table->string('phone', 50)->nullable(true);
+            $table->string('email', 50)->nullable(true);
+            $table->text('description')->nullable(true);
+            $table->integer('education_id')->unsigned()->index();
 
             $table->timestamps();
         });
