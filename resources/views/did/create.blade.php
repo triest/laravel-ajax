@@ -34,7 +34,7 @@
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" name="email" required="required"
                    placeholder="Введите email"
-                   required  value={{ old('email') }} >
+                   required value={{ old('email') }} >
             @if($errors->has('email'))
                 <font color="red"><p>  {{$errors->first('femili')}}</p></font>
             @endif
@@ -58,21 +58,39 @@
     </form>
     <script type="text/javascript">
         function f() {
-          //  console.log("submit");
+            //  console.log("submit");
             var frm = $('#form');
             var formData = $('#form').serializeArray() //serialize data from form
             console.log(formData);
-            var att=frm.attr("action");
-         //   console.log(att);
+            var att = frm.attr("action");
             $.ajax({
                 url: att,
                 data: formData,
-                type: 'POST'
+                type: 'POST',
+                statusCode: {
+                    200: function () {
+                        console.log("200 - Success");
+                        alert("Зайвка успешео создана!");
+                    },
+                    404: function (request, status, error) {
+                        console.log("404 - Not Found");
+                        console.log(error);
+                        alert("Ошибка. Страница не неадена!");
+                    },
+                    503: function (request, status, error) {
+                        console.log("503 - Server Problem");
+                        console.log(error);
+                        alert("Проблем сервера.");
+                    }
+                },
             }).done(function (data) {
-          //      console.log(data);
+                console.log(data);
+
+
+                //   console.log(cod);
+
             });
         }
-
 
 
     </script>
