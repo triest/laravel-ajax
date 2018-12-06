@@ -18,4 +18,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('main/edit', 'MainController@edit')->name('editMain');
     Route::post('main/update', 'MainController@update')->name('updateMain');
     Route::get('did/create', 'DidController@create')->name('createDid');
+    Route::post('did/store', 'DidController@store')->name('storeDid');
 });

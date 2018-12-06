@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Did;
 use App\Education;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Response;
 
 class DidController extends Controller
 {
@@ -52,6 +54,7 @@ class DidController extends Controller
     public function store(Request $request)
     {
         //
+        return Response::json(['result' => 'ok']);
     }
 
     /**
