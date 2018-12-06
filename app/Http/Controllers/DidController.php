@@ -27,7 +27,7 @@ class DidController extends Controller
             'description',
             'created_at',
             'updated_at')->simplePaginate(20);
-        dump($dids);
+
         return view("did/index")->with(['dids' => $dids]);
 
     }
@@ -40,7 +40,10 @@ class DidController extends Controller
     public function create()
     {
         //
-        $educations = Education::all();
+        $educations = Education::select('id',
+            'name',
+            'created_at',
+            'updated_at')->get();
 
         return view('did.create')->with(['educations' => $educations]);
     }
@@ -53,22 +56,19 @@ class DidController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dump($request);
-        $did=new Did();
-        $did->name=$request->name;
-        $did->femili=$request->femili;
-        $did->email=$request->email;
-        $did->phone=$request->phone;
-        $did->description=$request->description;
-        dump($did);
+        $did = new Did();
+        $did->name = $request->name;
+        $did->femili = $request->femili;
+        $did->email = $request->email;
+        $did->phone = $request->phone;
+        $did->description = $request->description;
         $did->save();
-        $education=Education::find($request->education)->first();
-      //  dump($education);
-    //    die();
-
-       // dump($education);
-      //  $did->education()->save($education);
+        $education = Education::select('id',
+            'name',
+            'created_at',
+            'updated_at')
+            ->where('id', $request->education)
+            ->first();
         $education->did()->save($did);
         $did->save();
         return Response::json(['result' => '200']);
