@@ -7,6 +7,8 @@ use App\Education;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
+use Auth;
+use Mail;
 
 class DidController extends Controller
 {
@@ -73,7 +75,22 @@ class DidController extends Controller
             ->first();
         $education->did()->save($did);
         $did->save();
+        $user = Auth::user();
+        $this->sendMail($user->email);
         return Response::json(['result' => '200']);
+    }
+
+    public function sendMail($mail)
+    {
+        $testname = 'testname1';
+        Mail::send('mail.test', ['name' => $testname], function ($message) use ($mail) {
+            $message
+                ->to($mail, 'some guy')
+                ->from('sakura-testmail@sakura-city.info')
+                ->subject('Спасибо что зарегистрировались');
+        });
+        //  console.log();
+        return null;
     }
 
     /**

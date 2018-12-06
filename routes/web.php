@@ -12,6 +12,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //did
 Route::get('/did', 'DidController@index')->name('did');
 
+Route::get('/mail', 'DidController@sendMail')->name('mail');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');
