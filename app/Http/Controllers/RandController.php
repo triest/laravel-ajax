@@ -61,6 +61,7 @@ class RandController extends Controller
                     dump($image_extension);
                     $type = $this->mime_content_type($image_extension);
                     dump($type);
+
                 }
             }
         }

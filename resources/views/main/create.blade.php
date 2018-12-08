@@ -25,7 +25,7 @@
 
         <table class="table table-bordered" id="dynamic_field">
             <tr>
-                <td><input type="file" name="images[]" placeholder="Enter your Name" class="form-control name_list"/>
+                <td><input type="file" name="image[]" placeholder="Enter your Name" class="form-control name_list"/>
                 </td>
                 <td>
                     <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
@@ -43,7 +43,7 @@
             var i = 1;
             $('#add').click(function () {
                 i++;
-                $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="images[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="image[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
             });
 
             $(document).on('click', '.btn_remove', function () {
