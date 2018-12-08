@@ -21,11 +21,12 @@
             @endif
         </div>
         <br>
-               <br>
+        <br>
 
         <table class="table table-bordered" id="dynamic_field">
             <tr>
-                <td><input type="file" name="images[]" placeholder="Enter your Name" class="form-control name_list"/></td>
+                <td><input type="file" name="images[]" placeholder="Enter your Name" class="form-control name_list"/>
+                </td>
                 <td>
                     <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
                 </td>

@@ -84,9 +84,8 @@ class MainController extends Controller
         $main->description = $request->description;
         $main->save();
         dump($request);
-        die();
-        if (Input::hasFile('images')) {
-
+        //die();
+        if (Input::hasFile('files')) {
             foreach ($request->images as $key) {
                 $image_extension = $key->getClientOriginalExtension();
                 $image_new_name = md5(microtime(true));
@@ -97,6 +96,7 @@ class MainController extends Controller
                 $image->save();
             }
         }
+
         return $this->index();
     }
 

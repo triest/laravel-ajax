@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Rand;
+use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Response;
 use Auth;
 
@@ -46,8 +48,26 @@ class RandController extends Controller
     {
         //
         dump($request);
+        $rand = new Rand();
+        $rand->description = $request->description;
+        $rand->save();
+
+        if (Input::hasFile('files')) {
+            foreach ($request->files as $key) {
+                //dump($key);
+                foreach ($key as $key2) {
+                    //  dump($key2);
+                    $image_extension = $key2->getClientOriginalExtension();
+                    dump($image_extension);
+                    $type = $this->mime_content_type($image_extension);
+                    dump($type);
+                }
+            }
+        }
+
+
+        //   die();
         return Response::json(['result' => '200']);
-        //return  Response::json(['result' => $request]);
     }
 
     /**
@@ -93,5 +113,103 @@ class RandController extends Controller
     public function destroy(rand $rand)
     {
         //
+    }
+
+    //
+    function getFileMimeType($file)
+    {
+        if (function_exists('finfo_file')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $type = finfo_file($finfo, $file);
+            finfo_close($finfo);
+        } else {
+            require_once 'upgradephp/ext/mime.php';
+            $type = mime_content_type($file);
+        }
+
+        if (!$type || in_array($type, array('application/octet-stream', 'text/plain'))) {
+            $secondOpinion = exec('file -b --mime-type ' . escapeshellarg($file), $foo, $returnCode);
+            if ($returnCode === 0 && $secondOpinion) {
+                $type = $secondOpinion;
+            }
+        }
+
+        if (!$type || in_array($type, array('application/octet-stream', 'text/plain'))) {
+            require_once 'upgradephp/ext/mime.php';
+            $exifImageType = exif_imagetype($file);
+            if ($exifImageType !== false) {
+                $type = image_type_to_mime_type($exifImageType);
+            }
+        }
+
+        return $type;
+    }
+
+    function mime_content_type($filename)
+    {
+
+        $mime_types = array(
+
+            'txt' => 'text/plain',
+            'htm' => 'text/html',
+            'html' => 'text/html',
+            'php' => 'text/html',
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+            'swf' => 'application/x-shockwave-flash',
+            'flv' => 'video/x-flv',
+
+            // images
+            'PNG' => 'image',
+            'jpe' => 'image',
+            'jpeg' => 'image',
+            'jpg' => 'image',
+            'gif' => 'image',
+            'bmp' => 'image',
+            'ico' => 'image',
+            'tiff' => 'image',
+            'tif' => 'image',
+            'svg' => 'image',
+            'svgz' => 'image',
+
+            // archives
+            'zip' => 'application/zip',
+            'rar' => 'application/x-rar-compressed',
+            'exe' => 'application/x-msdownload',
+            'msi' => 'application/x-msdownload',
+            'cab' => 'application/vnd.ms-cab-compressed',
+
+            // audio/video
+            'mp3' => 'audio/mpeg',
+            'qt' => 'video/quicktime',
+            'mov' => 'video/quicktime',
+
+            // adobe
+            'pdf' => 'doc',
+            'psd' => 'doc',
+            'ai' => 'doc',
+            'eps' => 'doc',
+            'ps' => 'doc',
+
+            // ms office
+            'doc' => 'doc',
+            'rtf' => 'doc',
+            'xls' => 'doc',
+            'ppt' => 'doc',
+
+            // open office
+            'odt' => 'doc',
+            'ods' => 'doc',
+        );
+
+        //   $ext = strtolower(array_pop(explode('.', $filename)));
+        $ext = $filename;
+        if (array_key_exists($ext, $mime_types)) {
+            return $mime_types[$ext];
+        } else {
+            return null;
+        }
     }
 }
