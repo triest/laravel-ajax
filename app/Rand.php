@@ -22,7 +22,7 @@ class Rand extends Model
         'updated_at'
     ];
 
-    public function images()
+    public function randContent()
     {
         return $this->hasMany('App\RandContent');
     }

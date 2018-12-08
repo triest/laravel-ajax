@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Rand;
+use App\RandContent;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -61,7 +62,11 @@ class RandController extends Controller
                     dump($image_extension);
                     $type = $this->mime_content_type($image_extension);
                     dump($type);
-
+                    $rand_content = new RandContent();
+                    $rand_content->file_name = $key2;
+                    $rand_content->content_type = $type;
+                    $rand->randContent()->save($rand_content);
+                    $rand->save();
                 }
             }
         }
