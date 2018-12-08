@@ -19,8 +19,10 @@ Route::get('rand', 'RandController@rand')->name('rand');
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/', 'AdminController@index')->name('admin');
-
+    Route::get('admin/did/{id}', 'AdminController@showDid')->name('showDid');
+    Route::get('admin/did/delete/{id}', 'AdminController@deleteDid')->name('deleteDid')->middleware('superAdmin');
 });
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');

@@ -31,4 +31,5 @@ class Did extends Model
         $education = $this->education()->first()->name;
         return $education;
     }
+
 }

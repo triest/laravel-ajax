@@ -16,7 +16,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'email',
+        'email_verified_at',
+        'admin',
+        'superAdmin'
     ];
 
     /**
@@ -25,6 +31,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+
+    public function isSuperAdmin()
+    {
+        if ($this->superAdmin == 1) {
+            return true;
+        }
+        return false;
+    }
 }
