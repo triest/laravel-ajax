@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputFile">Текст анкеты:</label>
+            <label for="exampleInputFile">Текст заявки:</label>
             <textarea name="description" id="description" required> {{old('description')}}</textarea>
         </div>
 
@@ -55,6 +55,7 @@
         <br><br>
         <!-- <button type="submit" class="btn btn-default">Создать текст</button> -->
         <input type="button" onclick="return f();" value="Send">
+
     </form>
     <script type="text/javascript">
         function f() {
@@ -62,6 +63,8 @@
             var frm = $('#form');
             var formData = $('#form').serializeArray() //serialize data from form
             console.log(formData);
+
+
             var att = frm.attr("action");
             $.ajax({
                 url: att,

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Rand;
 use Illuminate\Http\Request;
+use Response;
+use Auth;
 
 class RandController extends Controller
 {
@@ -15,7 +17,12 @@ class RandController extends Controller
     public function index()
     {
         //
+        $rands = Rand::select('id',
+            'description',
+            'created_at',
+            'updated_at')->simplePaginate(20);
 
+        return view("rand/index")->with(['dids' => $rands]);
     }
 
     /**
@@ -26,6 +33,7 @@ class RandController extends Controller
     public function create()
     {
         //
+        return view('rand.create');
     }
 
     /**
@@ -37,6 +45,9 @@ class RandController extends Controller
     public function store(Request $request)
     {
         //
+        dump($request);
+        return Response::json(['result' => '200']);
+        //return  Response::json(['result' => $request]);
     }
 
     /**

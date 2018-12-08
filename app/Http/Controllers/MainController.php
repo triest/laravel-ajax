@@ -83,6 +83,8 @@ class MainController extends Controller
         $main->title = $request->title;
         $main->description = $request->description;
         $main->save();
+        dump($request);
+        die();
         if (Input::hasFile('images')) {
 
             foreach ($request->images as $key) {

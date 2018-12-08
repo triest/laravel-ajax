@@ -44,7 +44,8 @@ class AdminController extends Controller
             'femili',
             'description',
             'created_at',
-            'updated_at')
+            'updated_at',
+            'ip')
             ->where('id', $id)->first();
         if ($did == null) {
             return abort(404);

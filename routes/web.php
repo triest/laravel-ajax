@@ -14,7 +14,7 @@ Route::get('/did', 'DidController@index')->name('did');
 
 Route::get('/mail', 'DidController@sendMail')->name('mail');
 
-Route::get('rand', 'RandController@rand')->name('rand');
+Route::get('rand', 'RandController@index')->name('rand');
 
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('did/create', 'DidController@create')->name('createDid');
     Route::post('did/store', 'DidController@store')->name('storeDid');
 
-    //рандомный контент
 
+    //рандомный контент
+    Route::get('rand/create', 'RandController@create')->name('createRand');
+    Route::post('rand/store', 'RandController@store')->name('storeRand');
 });
