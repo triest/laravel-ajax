@@ -30,7 +30,7 @@ class DidController extends Controller
             'created_at',
             'updated_at')->simplePaginate(20);
 
-        return view("did/rand")->with(['dids' => $dids]);
+        return view("did/index")->with(['dids' => $dids]);
 
     }
 
