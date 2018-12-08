@@ -16,6 +16,7 @@ Route::get('/mail', 'DidController@sendMail')->name('mail');
 
 Route::get('rand', 'RandController@rand')->name('rand');
 
+//маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/', 'AdminController@index')->name('admin');
 

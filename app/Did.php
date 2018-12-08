@@ -23,6 +23,12 @@ class Did extends Model
 
     public function education()
     {
-        return $this->hasOne('App\Education');
+        return $this->hasOne('App\Education', 'id', 'education_id');
+    }
+
+    public function getEducationName()
+    {
+        $education = $this->education()->first()->name;
+        return $education;
     }
 }

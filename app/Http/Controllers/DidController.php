@@ -31,7 +31,6 @@ class DidController extends Controller
             'updated_at')->simplePaginate(20);
 
         return view("did/index")->with(['dids' => $dids]);
-
     }
 
     /**
