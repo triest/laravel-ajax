@@ -21,4 +21,9 @@ class Rand extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function images()
+    {
+        return $this->hasMany('App\RandContent');
+    }
 }
