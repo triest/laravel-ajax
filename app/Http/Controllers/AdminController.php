@@ -152,9 +152,14 @@ class AdminController extends Controller
 
     public function getUsers(Request $request)
     {
-
         $users = User::all();
         return Response::json($users);
+    }
+
+    public function makeDid(Request $request)
+    {
+        dump($request);
+        return Response::json(['result' => '200']);
     }
 
 }
