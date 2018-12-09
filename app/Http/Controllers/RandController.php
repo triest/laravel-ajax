@@ -60,7 +60,7 @@ class RandController extends Controller
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));
                     $rand_content = new RandContent();
-                    $rand_content->file_name = $image_new_name;   //сохраняем и привязываем к обьекту Rand
+                    $rand_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту Rand
                     $rand_content->content_type = $type;
                     $rand->randContent()->save($rand_content);
                     $rand->save();

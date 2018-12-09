@@ -85,6 +85,10 @@
 
                     @if(Auth::user()->isAdmin())
                         <li class="nav-item active">
+                            <a class="nav-link" href="{{route('admin')}}">Панель администратора<span
+                                        class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
                             <a class="nav-link" href="{{route('adminDid')}}">Заявки<span
                                         class="sr-only">(current)</span></a>
                         </li>
