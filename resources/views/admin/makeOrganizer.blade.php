@@ -20,6 +20,7 @@
 
 
     <script>
+        var k = 1;
         window.onload = function () {
             f();
 
@@ -36,12 +37,37 @@
                 },
             }).done(function (data) {
                 console.log(data);
-                var i = 1;
+                var i = 0;
+
                 $.each(data, function (index, subcatObj) {
-                    //console.log(subcatObj.id);
-                    console.log(subcatObj.name);
-                    console.log(subcatObj.email);
                     var x = document.getElementById('body').insertRow(0);
+                    var y = x.insertCell(0);
+                    var z = x.insertCell(1);
+                    var subcatObj2 = subcatObj;
+                    //   console.log(subcatObj);
+                    y.innerHTML = '';
+                    const did = y.appendChild(document.createElement('input'));
+                    const rand = z.appendChild(document.createElement('input'));
+                    did.type = 'button';
+                    rand.type = 'button'
+                    this.i = subcatObj.id;
+                    if (subcatObj.didOrganizer == 0) {
+                        did.value = 'Назначить куратором1';
+                        did.addEventListener('click', () => makeDid(subcatObj));
+                    }
+                    else {
+                        did.value = 'Снять куратора';
+                        did.addEventListener('click', () => deleteDid(subcatObj));
+                    }
+                    if (subcatObj.randOrganizer == 0) {
+                        rand.value = 'Назначить куратором ';
+                        rand.addEventListener('click', () => makeRand(subcatObj));
+                    }
+                    else {
+                        z.innerHTML = "<input type=\"button\" onclick=\"return deleteRand(subcatObj);\" value=\"Снять куратора\">"
+                    }
+
+                    //  z.innerHTML = subcatObj.randOrganizer;
                     var y = x.insertCell(0);
                     var z = x.insertCell(1);
                     y.innerHTML = subcatObj.name;
@@ -49,6 +75,26 @@
                 })
 
             });
+        }
+
+        function makeDid(item) {
+            console.log('in did');
+            console.log(item)
+        }
+
+        function deleteDid(item) {
+            console.log('delete did')
+            console.log(item)
+        }
+
+        function makeRand(item) {
+            console.log('make rand')
+            console.log(item)
+        }
+
+        function deleteRand(item) {
+            console.log('delete rand')
+            console.log(item)
         }
 
 

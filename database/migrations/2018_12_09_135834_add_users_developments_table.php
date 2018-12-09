@@ -14,7 +14,7 @@ class AddUsersDevelopmentsTable extends Migration
     public function up()
     {
         //
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->boolean('didOrganizer')->default(false)->nullable(true);
             $table->boolean('randOrganizer')->default(false)->nullable(true);
         });
@@ -27,7 +27,7 @@ class AddUsersDevelopmentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('didOrganizer');
             $table->dropColumn('randOrganizer');
         });
