@@ -47,32 +47,26 @@ class RandController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dump($request);
         $rand = new Rand();
+        $rand->title = $request->title;
         $rand->description = $request->description;
         $rand->save();
-
         if (Input::hasFile('files')) {
             foreach ($request->files as $key) {
-                //dump($key);
                 foreach ($key as $key2) {
-                    //  dump($key2);
                     $image_extension = $key2->getClientOriginalExtension();
-                    dump($image_extension);
-                    $type = $this->mime_content_type($image_extension);
-                    dump($type);
+                    $type = $this->mime_content_type($image_extension);      //получпем тип загруженного файла
+                    $image_new_name = md5(microtime(true));
+                    $key2->move(public_path() . '/images/upload/',
+                        strtolower($image_new_name . '.' . $image_extension));
                     $rand_content = new RandContent();
-                    $rand_content->file_name = $key2;
+                    $rand_content->file_name = $image_new_name;   //сохраняем и привязываем к обьекту Rand
                     $rand_content->content_type = $type;
                     $rand->randContent()->save($rand_content);
                     $rand->save();
                 }
             }
         }
-
-
-        //   die();
         return Response::json(['result' => '200']);
     }
 
@@ -151,6 +145,8 @@ class RandController extends Controller
         return $type;
     }
 
+
+    //возвращает тип полученного файла
     function mime_content_type($filename)
     {
 
@@ -169,6 +165,7 @@ class RandController extends Controller
 
             // images
             'PNG' => 'image',
+            'png' => 'image',
             'jpe' => 'image',
             'jpeg' => 'image',
             'jpg' => 'image',

@@ -53,6 +53,7 @@
                     <a class="nav-link" href="{{route('rand')}}">Рандомный контент<span class="sr-only">(current)</span></a>
                 </li>
 
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -82,6 +83,15 @@
                         </div>
                     </li>
 
+                    @if(Auth::user()->isAdmin())
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('adminDid')}}">Заявки<span
+                                        class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('adminRand')}}">Рандомный контент<span class="sr-only">(current)</span></a>
+                        </li>
+                    @endif
                 @endguest
             </ul>
             <form class="form-inline mt-2 mt-md-0">
@@ -93,7 +103,7 @@
 </header>
 
 <main role="main">
-<br><br>
+    <br><br>
 
     <div class="container">
         @yield('content')

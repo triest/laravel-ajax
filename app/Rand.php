@@ -17,6 +17,7 @@ class Rand extends Model
      */
     protected $fillable = [
         'id',
+        'title',
         'description',
         'created_at',
         'updated_at'

@@ -5,8 +5,19 @@
     <form action="{{route('storeRand')}}" id="form" enctype="multipart/form-data" method="post" novalidate>
         {{ csrf_field() }}
         <div class="form-group">
+            <label for="name">Имя заявки:</label>
+            <input type="text" class="form-control" id="title" name="title" required="required"
+                   placeholder="Введите имя"
+                   required value={{ old('title') }} >
+            @if($errors->has('title'))
+                <font color="red"><p>  {{$errors->first('title')}}</p></font>
+            @endif
+        </div>
+
+        <div class="form-group">
             <label for="exampleInputFile">Описание заявки:</label>
             <br>
+
             <textarea name="description" id="description" required> {{old('description')}}</textarea>
         </div>
         <table class="table table-bordered" id="dynamic_field">
@@ -108,8 +119,24 @@
                 url: att,
                 type: 'POST',
                 data: formData,
+                statusCode: {
+                    200: function () {
+                        console.log("200 - Success");
+                        alert("Зайвка успешео создана!");
+                    },
+                    404: function (request, status, error) {
+                        console.log("404 - Not Found");
+                        console.log(error);
+                        alert("Ошибка. Страница не неадена!");
+                    },
+                    503: function (request, status, error) {
+                        console.log("503 - Server Problem");
+                        console.log(error);
+                        alert("Проблема сервера.");
+                    }
+                },
                 success: function (data) {
-                    alert(data)
+                    //alert(data)
                 },
                 cache: false,
                 contentType: false,
@@ -131,7 +158,6 @@
 
         function f() {
             console.log("adding file");
-
         }
 
 
