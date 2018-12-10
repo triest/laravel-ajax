@@ -33,4 +33,9 @@ class Did extends Model
         return $education;
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

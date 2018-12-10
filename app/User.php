@@ -51,4 +51,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function rand()
+    {
+        return $this->belongsToMany(Rand::class);
+    }
+
+    public function dids()
+    {
+        return $this->belongsToMany(Did::class);
+    }
 }

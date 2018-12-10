@@ -27,4 +27,9 @@ class Rand extends Model
     {
         return $this->hasMany('App\RandContent');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
