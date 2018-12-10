@@ -83,7 +83,7 @@
             $.ajax({
                 type: "POST",
                 url: '/admin/makeDid',
-                data: {id: item.id, _token: '{{csrf_token()}}'},
+                data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
                 },
@@ -103,7 +103,7 @@
             $.ajax({
                 type: "POST",
                 url: '/admin/makeRand',
-                data: {id: item.id, _token: '{{csrf_token()}}'},
+                data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
                 },
