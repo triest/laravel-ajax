@@ -18,6 +18,7 @@ Route::get('rand', 'RandController@index')->name('rand');
 Route::get('did', 'DidController@index')->name('did');
 
 Route::post('admin/makeDid', 'AdminController@makeDid')->name('makeDid');
+Route::post('admin/makeRand', 'AdminController@makeRand')->name('makeRand');
 
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {

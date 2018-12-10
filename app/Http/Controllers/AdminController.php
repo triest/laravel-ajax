@@ -159,7 +159,13 @@ class AdminController extends Controller
     public function makeDid(Request $request)
     {
         dump($request);
+
         return Response::json(['result' => '200']);
     }
 
+    public function makeRand(Request $request)
+    {
+        dump($request);
+        return Response::json(['result' => '200']);
+    }
 }

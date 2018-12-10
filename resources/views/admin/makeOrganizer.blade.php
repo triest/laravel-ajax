@@ -83,13 +83,12 @@
             $.ajax({
                 type: "POST",
                 url: '/admin/makeDid',
-                data: {somefield: "Some field value", _token: '{{csrf_token()}}'},
+                data: {id: item.id, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
-
                 },
             });
         }
@@ -101,33 +100,18 @@
 
         function makeRand(item) {
             console.log(item);
-
             $.ajax({
-                url: '/rand/store/{:id}',
-                type: 'GET',
-                statusCode: {
-                    200: function () {
-                        console.log("200 - Success");
-                        alert("Зайвка успешео создана!");
-                    },
-                    404: function (request, status, error) {
-                        console.log("404 - Not Found");
-                        console.log(error);
-                        alert("Ошибка. Страница не неадена!");
-                    },
-                    503: function (request, status, error) {
-                        console.log("503 - Server Problem");
-                        console.log(error);
-                        alert("Проблема сервера.");
-                    }
-                },
+                type: "POST",
+                url: '/admin/makeRand',
+                data: {id: item.id, _token: '{{csrf_token()}}'},
                 success: function (data) {
-                    //alert(data)
+                    console.log(data);
                 },
-                cache: false,
-                contentType: false,
-                processData: false
+                error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                },
             });
+
         }
 
         function deleteRand(item) {
