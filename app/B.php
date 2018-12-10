@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Did extends Model
+class B extends Model
 {
     //
-    protected $table = 'bids';
+    protected $table = 'b';
 
     protected $fillable = [
         'id',
@@ -27,9 +27,15 @@ class Did extends Model
         return $this->hasOne('App\Education', 'id', 'education_id');
     }
 
+    public function randContent()
+    {
+        return $this->hasMany('App\RandContent');
+    }
+
     public function getEducationName()
     {
-        $education = $this->education()->first()->name;
+        $education = $this->education()->first();
+        $education = $education->name;
         return $education;
     }
 

@@ -13,7 +13,7 @@ class AddTitleToRandContent extends Migration
      */
     public function up()
     {
-        Schema::table('rand', function (Blueprint $table) {
+        Schema::table('a', function (Blueprint $table) {
             $table->char('title', 100)->default(null)->nullable(true);
         });
     }
@@ -25,7 +25,7 @@ class AddTitleToRandContent extends Migration
      */
     public function down()
     {
-        Schema::table('rand', function (Blueprint $table) {
+        Schema::table('a', function (Blueprint $table) {
             $table->dropColumn('title');
         });
     }

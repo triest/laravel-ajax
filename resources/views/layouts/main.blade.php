@@ -50,10 +50,10 @@
 
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('rand')}}">Рандомный контент<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{route('a')}}">A<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('did')}}">Заявки контент<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{route('b')}}">B<span class="sr-only">(current)</span></a>
                 </li>
 
                 @guest
@@ -91,11 +91,11 @@
                                         class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{route('adminDid')}}">Заявки<span
+                            <a class="nav-link" href="{{route('adminB')}}">Заявки<span
                                         class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{route('adminRand')}}">Рандомный контент<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{route('adminA')}}">Рандомный контент<span class="sr-only">(current)</span></a>
                         </li>
                     @endif
                 @endguest

@@ -16,7 +16,7 @@
                 <td>{{$did->id}}</td>
                 <td>{{$did->title}}</td>
                 <td>{{$did->created_at}}</td>
-                <td><a href="{{route('showRand',['id'=>$did->id])}}">Смотреть подробно</a></td>
+                <td><a href="{{route('showA',['id'=>$did->id])}}">Смотреть подробно</a></td>
             </tr>
         @endforeach
         </tbody>

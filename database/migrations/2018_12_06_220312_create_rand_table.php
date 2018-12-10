@@ -13,7 +13,7 @@ class CreateRandTable extends Migration
      */
     public function up()
     {
-        Schema::create('rand', function (Blueprint $table) {
+        Schema::create('a', function (Blueprint $table) {
             $table->increments('id');
             $table->text('description')->nullable(true);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateRandTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rand');
+        Schema::dropIfExists('a');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rand;
+use App\A;
 use App\User;
 use Illuminate\Http\Request;
-use App\Did;
+use App\B;
 use App\Education;
 use Illuminate\Support\Facades\Input;
 use File;
@@ -19,18 +19,18 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function did()
+    public function b()
     {
         return view("admin/index");
     }
 
-    public function showDid($id)
+    public function showB($id)
     {
 
         if ($id == null) {
             return abort(404);
         }
-        $did = Did::select('id',
+        $did = B::select('id',
             'name',
             'phone',
             'email',
@@ -44,7 +44,8 @@ class AdminController extends Controller
         if ($did == null) {
             return abort(404);
         }
-        return view("admin/detail")->with(['did' => $did]);
+        $content = $did->randContent()->get();
+        return view("admin/bDetail")->with(['item' => $did, 'content' => $content]);
     }
 
 
@@ -52,12 +53,12 @@ class AdminController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
-    public function showRand($id)
+    public function showA($id)
     {
         if ($id == null) {
             return abort(404);
         }
-        $rand = Rand::select('id',
+        $rand = A::select('id',
             'id',
             'title',
             'description',
@@ -69,7 +70,7 @@ class AdminController extends Controller
             return abort(404);
         }
         $content = $rand->randContent()->get();
-        return view("admin/randDetail")->with(['item' => $rand, 'content' => $content]);
+        return view("admin/aDetail")->with(['item' => $rand, 'content' => $content]);
     }
 
     public function deleteDid($id)
@@ -77,7 +78,7 @@ class AdminController extends Controller
         if ($id == null) {
             return abort(404);
         }
-        $did = Did::find($id);
+        $did = B::find($id);
         if ($did == null) {
             return abort(404);
         }
@@ -90,7 +91,7 @@ class AdminController extends Controller
         if ($id == null) {
             return abort(404);
         }
-        $rand = Rand::select('id',
+        $rand = A::select('id',
             'title',
             'description',
             'created_at',
@@ -119,7 +120,7 @@ class AdminController extends Controller
 
     public function didIndex(Request $request)
     {
-        $dids = Did::select('id',
+        $dids = B::select('id',
             'name',
             'phone',
             'email',
@@ -128,62 +129,61 @@ class AdminController extends Controller
             'description',
             'created_at',
             'updated_at')->simplePaginate(20);
-        return view("admin/did")->with(['dids' => $dids]);
+        return view("admin/b")->with(['dids' => $dids]);
     }
 
     public function randIndex(Request $request)
     {
-        $rand = Rand::select('id',
+        $rand = A::select('id',
             'title',
             'description',
             'created_at',
             'updated_at')->simplePaginate(20);
-        return view("admin/rand")->with(['rands' => $rand]);
+        return view("admin/a")->with(['rands' => $rand]);
     }
 
     //назначить организаторов
     public function Organizer(Request $request)
     {
         $users = User::all();
-        dump($users);
-
         return view('admin/makeOrganizer')->with(['users' => $users]);
     }
 
     public function getUsers(Request $request)
     {
         $users = User::all();
+
         return Response::json($users);
     }
 
-    public function makeDid(Request $request)
+    public function makeB(Request $request)
     {
         $user = User::find($request->id)->first();
-        $user->didOrganizer = 1;
+        $user->aOrganizer = 1;
         $user->save();
         return Response::json(['result' => '200']);
     }
 
-    public function makeRand(Request $request)
+    public function makeA(Request $request)
     {
         $user = User::find($request->id)->first();
-        $user->randOrganizer = 1;
+        $user->bOrganizer = 1;
         $user->save();
         return Response::json(['result' => '200']);
     }
 
-    public function deleteUserDid(Request $request)
+    public function deleteUserB(Request $request)
     {
         $user = User::find($request->id)->first();
-        $user->didOrganizer = 0;
+        $user->aOrganizer = 0;
         $user->save();
         return Response::json(['result' => '200']);
     }
 
-    public function deleteUserRand(Request $request)
+    public function deleteUserA(Request $request)
     {
         $user = User::find($request->id)->first();
-        $user->randOrganizer = 0;
+        $user->bOrganizer = 0;
         $user->save();
         return Response::json(['result' => '200']);
     }

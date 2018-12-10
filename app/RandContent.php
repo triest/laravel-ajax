@@ -20,7 +20,7 @@ class RandContent extends Model
 
     public function main()
     {
-        return $this->hasOne('App\Rand');
+        return $this->hasOne('App\A');
     }
 
 }

@@ -18,6 +18,6 @@ class Education extends Model
 
     public function did()
     {
-        return $this->hasMany('App\Did');
+        return $this->hasMany('App\B');
     }
 }

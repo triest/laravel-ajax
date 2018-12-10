@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Rand;
+use App\B;
+use App\A;
 use App\RandContent;
 use App\Image;
 use Illuminate\Http\Request;
@@ -20,12 +21,16 @@ class RandController extends Controller
     public function index()
     {
         //
-        $rands = Rand::select('id',
-            'description',
-            'created_at',
-            'updated_at')->simplePaginate(20);
-
-        return view("rand/index")->with(['dids' => $rands]);
+        $user = Auth::user();
+        if ($user->randOrganizer == 1) {
+            $rands = A::select('id',
+                'description',
+                'created_at',
+                'updated_at')->simplePaginate(20);
+        } else {
+            $rands = null;
+        }
+        return view("a/index")->with(['rands' => $rands]);
     }
 
     /**
@@ -36,7 +41,7 @@ class RandController extends Controller
     public function create()
     {
         //
-        return view('rand.create');
+        return view('a.create');
     }
 
     /**
@@ -47,7 +52,7 @@ class RandController extends Controller
      */
     public function store(Request $request)
     {
-        $rand = new Rand();
+        $rand = new A();
         $rand->title = $request->title;
         $rand->description = $request->description;
         $rand->save();
@@ -60,7 +65,7 @@ class RandController extends Controller
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));
                     $rand_content = new RandContent();
-                    $rand_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту Rand
+                    $rand_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту A
                     $rand_content->content_type = $type;
                     $rand->randContent()->save($rand_content);
                     $rand->save();
@@ -73,21 +78,37 @@ class RandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\rand $rand
+     * @param  \App\A $rand
      * @return \Illuminate\Http\Response
      */
-    public function show(rand $rand)
+    public function show($id)
     {
-        //
+        // $user = Auth::user();
+        if (Auth::user()->randOrganizer == 1) {
+            $item = A::select([
+                'id',
+                'title',
+                'description',
+                'created_at',
+                'updated_at'
+            ])->where('id', $id)->first();
+            if ($item == null) {
+                return abort(404);
+            }
+
+        } else {
+            return abort(404);
+        }
+        return view('a/detail')->with(['item' => $item]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\rand $rand
+     * @param  \App\A $rand
      * @return \Illuminate\Http\Response
      */
-    public function edit(rand $rand)
+    public function edit(A $rand)
     {
         //
     }
@@ -96,10 +117,10 @@ class RandController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\rand $rand
+     * @param  \App\A $rand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, rand $rand)
+    public function update(Request $request, A $rand)
     {
         //
     }
@@ -107,10 +128,10 @@ class RandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\rand $rand
+     * @param  \App\A $rand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(rand $rand)
+    public function destroy(A $rand)
     {
         //
     }

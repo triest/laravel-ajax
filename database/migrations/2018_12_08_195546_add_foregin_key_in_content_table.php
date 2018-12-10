@@ -16,7 +16,7 @@ class AddForeginKeyInContentTable extends Migration
         Schema::table('rand_content', function (Blueprint $table) {
             //
             $table->integer('rand_id')->unsigned()->index();
-            $table->foreign('rand_id')->references('id')->on('rand');
+            $table->foreign('rand_id')->references('id')->on('a');
         });
     }
 

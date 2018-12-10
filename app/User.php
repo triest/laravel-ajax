@@ -54,11 +54,11 @@ class User extends Authenticatable
 
     public function rand()
     {
-        return $this->belongsToMany(Rand::class);
+        return $this->belongsToMany(A::class);
     }
 
     public function dids()
     {
-        return $this->belongsToMany(Did::class);
+        return $this->belongsToMany(B::class);
     }
 }

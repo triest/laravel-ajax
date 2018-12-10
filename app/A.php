@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rand extends Model
+class A extends Model
 {
     //
-    protected $table = 'rand';
+    protected $table = 'a';
 
     //
     /**

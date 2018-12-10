@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Did;
+use App\B;
 use App\Education;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -20,17 +20,21 @@ class DidController extends Controller
     public function index()
     {
         //
-        $dids = Did::select('id',
-            'name',
-            'phone',
-            'email',
-            'education_id',
-            'femili',
-            'description',
-            'created_at',
-            'updated_at')->simplePaginate(20);
-
-        return view("did/index")->with(['dids' => $dids]);
+        $user = Auth::user();
+        if ($user->didOrganizer == 1) {
+            $dids = B::select('id',
+                'name',
+                'phone',
+                'email',
+                'education_id',
+                'femili',
+                'description',
+                'created_at',
+                'updated_at')->simplePaginate(20);
+        } else {
+            $dids = null;
+        }
+        return view("b/index")->with(['dids' => $dids]);
     }
 
     /**
@@ -46,7 +50,7 @@ class DidController extends Controller
             'created_at',
             'updated_at')->get();
 
-        return view('did.create')->with(['educations' => $educations]);
+        return view('b.create')->with(['educations' => $educations]);
     }
 
     /**
@@ -58,7 +62,7 @@ class DidController extends Controller
     public function store(Request $request)
     {
         $ip = $request->ip();
-        $did = new Did();
+        $did = new B();
         $did->name = $request->name;
         $did->femili = $request->femili;
         $did->email = $request->email;
@@ -94,21 +98,43 @@ class DidController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Did $did
+     * @param  \App\B $did
      * @return \Illuminate\Http\Response
      */
-    public function show(Did $did)
+    public function show($id)
     {
         //
+
+        if (Auth::user()->randOrganizer == 1) {
+            $item = B::select([
+                'id',
+                'name',
+                'phone',
+                'email',
+                'education_id',
+                'femili',
+                'description',
+                'created_at',
+                'updated_at',
+                'ip'
+            ])->where('id', $id)->first();
+            if ($item == null) {
+                return abort(404);
+            }
+
+        } else {
+            return abort(404);
+        }
+        return view('b/detail')->with(['item' => $item]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Did $did
+     * @param  \App\B $did
      * @return \Illuminate\Http\Response
      */
-    public function edit(Did $did)
+    public function edit(B $did)
     {
         //
     }
@@ -117,10 +143,10 @@ class DidController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Did $did
+     * @param  \App\B $did
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Did $did)
+    public function update(Request $request, B $did)
     {
         //
     }
@@ -128,10 +154,10 @@ class DidController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Did $did
+     * @param  \App\B $did
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Did $did)
+    public function destroy(B $did)
     {
         //
     }

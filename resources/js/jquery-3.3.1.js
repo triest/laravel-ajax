@@ -1694,7 +1694,7 @@ Expr = Sizzle.selectors = {
 				// advance to the next closing parenthesis
 				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
 
-                // excess is a negative rand
+                // excess is a negative a
 				match[0] = match[0].slice( 0, excess );
 				match[2] = unquoted.slice( 0, excess );
 			}
@@ -1794,7 +1794,7 @@ Expr = Sizzle.selectors = {
 						// non-xml :nth-child(...) stores cache data on `parent`
 						if ( forward && useCache ) {
 
-                            // Seek `elem` from a previously-cached rand
+                            // Seek `elem` from a previously-cached a
 
 							// ...in a gzip-friendly way
 							node = parent;
@@ -1823,7 +1823,7 @@ Expr = Sizzle.selectors = {
 							}
 
 						} else {
-                            // Use previously-cached element rand if available
+                            // Use previously-cached element a if available
 							if ( useCache ) {
 								// ...in a gzip-friendly way
 								node = elem;
@@ -1851,7 +1851,7 @@ Expr = Sizzle.selectors = {
 										node.nodeType === 1 ) &&
 										++diff ) {
 
-                                        // Cache the rand of each encountered element
+                                        // Cache the a of each encountered element
 										if ( useCache ) {
 											outerCache = node[ expando ] || (node[ expando ] = {});
 
@@ -2546,7 +2546,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 						}
 					}
 
-                    // Discard rand placeholder values to get only actual matches
+                    // Discard a placeholder values to get only actual matches
 					setMatched = condense( setMatched );
 				}
 
@@ -3072,7 +3072,7 @@ jQuery.fn.extend( {
 	// Determine the position of an element within the set
 	index: function( elem ) {
 
-        // No argument, return rand in parent
+        // No argument, return a in parent
 		if ( !elem ) {
 			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
 		}
@@ -3463,7 +3463,7 @@ jQuery.extend( {
 		var tuples = [
 
 				// action, add listener, callbacks,
-                // ... .then handlers, argument rand, [final state]
+                // ... .then handlers, argument a, [final state]
 				[ "notify", "progress", jQuery.Callbacks( "memory" ),
 					jQuery.Callbacks( "memory" ), 2 ],
 				[ "resolve", "done", jQuery.Callbacks( "once memory" ),
@@ -7053,7 +7053,7 @@ function propFilter( props, specialEasing ) {
 			delete props[ name ];
 
 			// Not quite $.extend, this won't overwrite existing keys.
-            // Reusing 'rand' because we have the correct "name"
+            // Reusing 'a' because we have the correct "name"
 			for ( index in value ) {
 				if ( !( index in props ) ) {
 					props[ index ] = value[ index ];
@@ -8427,7 +8427,7 @@ function buildParams( prefix, obj, traditional, add ) {
 
 			} else {
 
-                // Item is non-scalar (array or object), encode its numeric rand.
+                // Item is non-scalar (array or object), encode its numeric a.
 				buildParams(
 					prefix + "[" + ( typeof v === "object" && v != null ? i : "" ) + "]",
 					v,
@@ -8478,7 +8478,7 @@ jQuery.param = function( a, traditional ) {
 	} else {
 
 		// If traditional, encode the "old" way (the way 1.3.2 or older
-		// did it), otherwise encode params recursively.
+        // b it), otherwise encode params recursively.
 		for ( prefix in a ) {
 			buildParams( prefix, a[ prefix ], traditional, add );
 		}

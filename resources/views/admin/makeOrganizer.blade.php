@@ -8,8 +8,8 @@
         <tr>
             <th scope="col">Имя</th>
             <th scope="col">Email</th>
-            <th scope="col">Куратор заявок</th>
-            <th scope="col">Куратор рандомного контента</th>
+            <th scope="col">Куратор A</th>
+            <th scope="col">Куратор B</th>
         </tr>
         </thead>
         <tbody id="body">
@@ -53,15 +53,15 @@
                     did.type = 'button';
                     rand.type = 'button'
                     this.i = subcatObj.id;
-                    if (subcatObj.didOrganizer == 0) {
-                        did.value = 'Назначить куратором1';
+                    if (subcatObj.aOrganizer == 0) {
+                        did.value = 'Назначить куратором ';
                         did.addEventListener('click', () => makeDid(subcatObj));
                     }
                     else {
                         did.value = 'Снять куратора';
                         did.addEventListener('click', () => deleteDid(subcatObj));
                     }
-                    if (subcatObj.randOrganizer == 0) {
+                    if (subcatObj.bOrganizer == 0) {
                         rand.value = 'Назначить куратором ';
                         rand.addEventListener('click', () => makeRand(subcatObj));
 
@@ -84,7 +84,7 @@
         function makeDid(item) {
             $.ajax({
                 type: "POST",
-                url: '/admin/makeDid',
+                url: '/admin/makeB',
                 data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
@@ -97,11 +97,11 @@
         }
 
         function deleteDid(item) {
-            console.log('delete did')
+            console.log('delete b')
             console.log(item)
             $.ajax({
                 type: "POST",
-                url: '/admin/deleteDid',
+                url: '/admin/deleteB',
                 data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
@@ -117,7 +117,7 @@
             console.log(item);
             $.ajax({
                 type: "POST",
-                url: '/admin/makeRand',
+                url: '/admin/makeA',
                 data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);
@@ -130,11 +130,11 @@
         }
 
         function deleteRand(item) {
-            console.log('delete rand')
+            console.log('delete a')
             console.log(item)
             $.ajax({
                 type: "POST",
-                url: '/admin/deleteRand',
+                url: '/admin/deleteA',
                 data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
                 success: function (data) {
                     console.log(data);

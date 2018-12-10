@@ -15,7 +15,7 @@ class AddForeginsKeysUsersRans extends Migration
     {
         Schema::table('users_rands', function (Blueprint $table) {
             $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('rands_id')->references('id')->on('rand');
+            $table->foreign('rands_id')->references('id')->on('a');
         });
     }
 

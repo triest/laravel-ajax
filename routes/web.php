@@ -7,31 +7,33 @@ Auth::routes();
 
 Route::get('/', 'MainController@index')->name('main');
 
-Route::get('/home', 'HomeController@rand')->name('home');
+Route::get('/home', 'HomeController@a')->name('home');
 
-//did
+//b
 
 
 Route::get('/mail', 'DidController@sendMail')->name('mail');
 
-Route::get('rand', 'RandController@index')->name('rand');
-Route::get('did', 'DidController@index')->name('did');
+Route::get('a', 'RandController@index')->name('a');
+Route::get('b', 'DidController@index')->name('b');
+Route::get('b/{id}', 'DidController@show')->name('bDetail')->middleware('accessADid');
+Route::get('a/{id}', 'RandController@show')->name('aDetail')->middleware('accessBRand');
 
-Route::post('admin/makeDid', 'AdminController@makeDid')->name('makeDid');
-Route::post('admin/makeRand', 'AdminController@makeRand')->name('makeRand');
+Route::post('admin/makeB', 'AdminController@makeB')->name('makeB');
+Route::post('admin/makeA', 'AdminController@makeA')->name('makeA');
 
-Route::post('admin/deleteDid', 'AdminController@deleteUserDid')->name('deleteDid');
-Route::post('admin/deleteRand', 'AdminController@deleteUserRand')->name('deleteRand');
+Route::post('admin/deleteB', 'AdminController@deleteUserB')->name('deleteDid');
+Route::post('admin/deleteA', 'AdminController@deleteUserA')->name('deleteRand');
 
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('admin/', 'AdminController@did')->name('admin');
-    Route::get('admin/did/{id}', 'AdminController@showDid')->name('showDid');
-    Route::get('admin/rand/{id}', 'AdminController@showRand')->name('showRand');
-    Route::get('admin/did/delete/{id}', 'AdminController@deleteDid')->name('deleteDid')->middleware('superAdmin');
-    Route::get('admin/rand/delete/{id}', 'AdminController@deleteRand')->name('deleteRand')->middleware('superAdmin');
-    Route::get('admin/did', 'AdminController@didIndex')->name('adminDid');
-    Route::get('admin/rand', 'AdminController@randIndex')->name('adminRand');
+    Route::get('admin/', 'AdminController@b')->name('admin');
+    Route::get('admin/b/{id}', 'AdminController@showB')->name('showB');
+    Route::get('admin/a/{id}', 'AdminController@showA')->name('showA');
+    Route::get('admin/b/delete/{id}', 'AdminController@deleteB')->name('deleteB')->middleware('superAdmin');
+    Route::get('admin/a/delete/{id}', 'AdminController@deleteA')->name('deleteA')->middleware('superAdmin');
+    Route::get('admin/b', 'AdminController@didIndex')->name('adminB');
+    Route::get('admin/a', 'AdminController@randIndex')->name('adminA');
     Route::get('admin/Organizer', 'AdminController@Organizer')->name('makeOrganizer')->middleware('superAdmin');;
     Route::get('admin/getUsers', 'AdminController@getUsers')->name('getUsers');
 
@@ -44,11 +46,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('main/store', 'MainController@store')->name('storeMain');
     Route::get('main/edit', 'MainController@edit')->name('editMain');
     Route::post('main/update', 'MainController@update')->name('updateMain');
-    Route::get('did/create', 'DidController@create')->name('createDid');
-    Route::post('did/store', 'DidController@store')->name('storeDid');
-    Route::get('did2/', 'DidController@store')->name('storeDid');
+
+    Route::get('b/create', 'DidController@create')->name('createB');
+    Route::post('b/store', 'DidController@store')->name('storeB');
+    Route::get('did2/', 'DidController@store')->name('storeB');
 
     //рандомный контент
-    Route::get('rand/create', 'RandController@create')->name('createRand');
-    Route::post('rand/store', 'RandController@store')->name('storeRand');
+    Route::get('a/create', 'RandController@create')->name('createA');
+    Route::post('a/store', 'RandController@store')->name('storeA');
 });
