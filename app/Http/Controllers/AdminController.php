@@ -171,4 +171,21 @@ class AdminController extends Controller
         $user->save();
         return Response::json(['result' => '200']);
     }
+
+    public function deleteUserDid(Request $request)
+    {
+        $user = User::find($request->id)->first();
+        $user->didOrganizer = 0;
+        $user->save();
+        return Response::json(['result' => '200']);
+    }
+
+    public function deleteUserRand(Request $request)
+    {
+        $user = User::find($request->id)->first();
+        $user->randOrganizer = 0;
+        $user->save();
+        return Response::json(['result' => '200']);
+    }
+
 }

@@ -20,6 +20,9 @@ Route::get('did', 'DidController@index')->name('did');
 Route::post('admin/makeDid', 'AdminController@makeDid')->name('makeDid');
 Route::post('admin/makeRand', 'AdminController@makeRand')->name('makeRand');
 
+Route::post('admin/deleteDid', 'AdminController@deleteUserDid')->name('deleteDid');
+Route::post('admin/deleteRand', 'AdminController@deleteUserRand')->name('deleteRand');
+
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/', 'AdminController@did')->name('admin');

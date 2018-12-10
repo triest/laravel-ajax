@@ -27,6 +27,8 @@
         };
 
         function f() {
+            // $("#body").remove();
+            $("#example2").find("tr:not(:first)").remove();
             console.log("f")
             $.ajax({
                 url: 'getUsers',
@@ -62,12 +64,14 @@
                     if (subcatObj.randOrganizer == 0) {
                         rand.value = 'Назначить куратором ';
                         rand.addEventListener('click', () => makeRand(subcatObj));
+
                     }
                     else {
-                        z.innerHTML = "<input type=\"button\" onclick=\"return deleteRand(subcatObj);\" value=\"Снять куратора\">"
+                        rand.value = 'Снять куратора';
+                        rand.addEventListener('click', () => deleteRand(subcatObj));
+
                     }
 
-                    //  z.innerHTML = subcatObj.randOrganizer;
                     var y = x.insertCell(0);
                     var z = x.insertCell(1);
                     y.innerHTML = subcatObj.name;
@@ -78,8 +82,6 @@
         }
 
         function makeDid(item) {
-            //   console.log('in did');
-            // console.log(item)
             $.ajax({
                 type: "POST",
                 url: '/admin/makeDid',
@@ -91,11 +93,24 @@
                     console.log(data);
                 },
             });
+            f()
         }
 
         function deleteDid(item) {
             console.log('delete did')
             console.log(item)
+            $.ajax({
+                type: "POST",
+                url: '/admin/deleteDid',
+                data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                },
+            });
+            f()
         }
 
         function makeRand(item) {
@@ -111,14 +126,24 @@
                     console.log(data);
                 },
             });
-
+            f()
         }
 
         function deleteRand(item) {
             console.log('delete rand')
             console.log(item)
+            $.ajax({
+                type: "POST",
+                url: '/admin/deleteRand',
+                data: {id: item.id, user: item.name, _token: '{{csrf_token()}}'},
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                },
+            });
+            f()
         }
-
-
     </script>
 @endsection
