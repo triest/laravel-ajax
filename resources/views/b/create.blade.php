@@ -45,12 +45,24 @@
             <textarea name="description" id="description" required> {{old('description')}}</textarea>
         </div>
 
+
         Образование:
         <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education">
             @foreach($educations as $education)
                 <option value="{{$education->id}}">{{$education->name}}</option>
             @endforeach
         </select>
+
+        <table class="table table-bordered" id="dynamic_field">
+            <tr>
+                <td><input type="file" name="files[]" id="filesInfo" placeholder="Enter your Name"
+                           class="form-control name_list"/></td>
+                <td>
+                    <button type="button" name="add" id="add" onclick="return f();" class="btn btn-success">Add More
+                    </button>
+                </td>
+            </tr>
+        </table>
 
         <br><br>
         <!-- <button type="submit" class="btn btn-default">Создать текст</button> -->

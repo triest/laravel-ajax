@@ -62,6 +62,8 @@ class BController extends Controller
      */
     public function store(Request $request)
     {
+        dump($request);
+
         $ip = $request->ip();
         $did = new B();
         $did->name = $request->name;

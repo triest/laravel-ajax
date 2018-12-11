@@ -39,6 +39,8 @@ Route::group(['middleware' => 'admin'], function () {
     //  Route::get('admin/makeDid', 'AdminController@makeDid')->name('makeDid2');
 });
 
+Route::post('b/store', 'BController@store')->name('storeB');
+Route::post('a/store', 'AController@store')->name('storeA');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');
@@ -50,12 +52,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('aa/create', 'AController@create')->name('createA1');
     Route::get('bb/create', 'BController@create')->name('createB1');
 
-    Route::post('b/store', 'BController@store')->name('storeB');
-    Route::get('did2/', 'BController@store')->name('storeB');
 
     //рандомный контент
 
-    Route::post('a/store', 'AController@store')->name('storeA');
+
     Route::get('a', 'AController@index')->name('a');
     Route::get('b', 'BController@index')->name('b');
 });
