@@ -36,7 +36,7 @@ class BController extends Controller
         } else {
             $dids = null;
         }
-        return view("b/index")->with(['dids' => $dids]);
+        return view("b/index")->with(['items' => $dids]);
     }
 
     /**
@@ -122,26 +122,19 @@ class BController extends Controller
      */
     public function show($id)
     {
-        //
-
-        if (Auth::user()->randOrganizer == 1) {
-            $item = B::select([
-                'id',
-                'name',
-                'phone',
-                'email',
-                'education_id',
-                'femili',
-                'description',
-                'created_at',
-                'updated_at',
-                'ip'
-            ])->where('id', $id)->first();
-            if ($item == null) {
-                return abort(404);
-            }
-
-        } else {
+        $item = B::select([
+            'id',
+            'name',
+            'phone',
+            'email',
+            'education_id',
+            'femili',
+            'description',
+            'created_at',
+            'updated_at',
+            'ip'
+        ])->where('id', $id)->first();
+        if ($item == null) {
             return abort(404);
         }
         return view('b/detail')->with(['item' => $item]);

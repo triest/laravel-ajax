@@ -19,7 +19,6 @@ class accessARand
         if (Auth::user() && Auth::user()->aOrganizer == 1) {
             return $next($request);
         }
-        //   return redirect('/');
         return abort(404);
     }
 }

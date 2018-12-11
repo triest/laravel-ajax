@@ -70,38 +70,6 @@
 
     </form>
     <script type="text/javascript">
-        function f() {
-            //  console.log("submit");
-            /*  var frm = $('#form');
-              var formData = $('#form').serializeArray() //serialize data from form
-              console.log(formData);
-
-
-              var att = frm.attr("action");
-              $.ajax({
-                  url: att,
-                  data: formData,
-                  type: 'POST',
-                  statusCode: {
-                      200: function () {
-                          console.log("200 - Success");
-                          alert("Зайвка успешео создана!");
-                      },
-                      404: function (request, status, error) {
-                          console.log("404 - Not Found");
-                          console.log(error);
-                          alert("Ошибка. Страница не неадена!");
-                      },
-                      503: function (request, status, error) {
-                          console.log("503 - Server Problem");
-                          console.log(error);
-                          alert("Проблема сервера.");
-                      }
-                  },
-              }).done(function (data) {
-                  console.log(data);
-              });
-          }*/
 
             $("form#form").submit(function (e) {
                 e.preventDefault();
@@ -154,7 +122,6 @@
             function f() {
                 console.log("adding file");
             }
-
 
 
     </script>

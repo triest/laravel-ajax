@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\A;
 use App\AContent;
 use App\Education;
+use App\Jobs\SenMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
@@ -20,7 +21,6 @@ class AController extends Controller
      */
     public function index()
     {
-        //
         $user = Auth::user();
         if ($user->aOrganizer == 1) {
             $rands = A::select('id',
@@ -36,7 +36,7 @@ class AController extends Controller
         } else {
             $rands = null;
         }
-        return view("a/index")->with(['rands' => $rands]);
+        return view("a/index")->with(['items' => $rands]);
     }
 
     /**
@@ -97,36 +97,36 @@ class AController extends Controller
                 }
             }
         }
-        //$user = Auth::user();
-        //$this->sendMail($user->email);
+
+        //создайм задание на отправку почты
+        SenMessage::dispatch("Test ");
+
         return Response::json(['result' => '200']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\A $rand
+     * @param  \App\B $did
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // $user = Auth::user();
-        if (Auth::user()->aOrganizer == 1) {
-            $item = A::select([
-                'id',
-                'title',
-                'description',
-                'created_at',
-                'updated_at'
-            ])->where('id', $id)->first();
-            if ($item == null) {
-                return abort(404);
-            }
-
-        } else {
+        $item = A::select([
+            'id',
+            'name',
+            'phone',
+            'email',
+            'education_id',
+            'femili',
+            'description',
+            'created_at',
+            'updated_at',
+            'ip'
+        ])->where('id', $id)->first();
+        if ($item == null) {
             return abort(404);
         }
-        dump($item);
         return view('a/detail')->with(['item' => $item]);
     }
 
