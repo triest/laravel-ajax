@@ -21,8 +21,9 @@ class BController extends Controller
     {
         //
         $user = Auth::user();
-        if ($user->didOrganizer == 1) {
+        if ($user->bOrganizer == 1) {
             $dids = B::select('id',
+                'title',
                 'name',
                 'phone',
                 'email',

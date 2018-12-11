@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BidTable extends Migration
+class CreateBTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,17 @@ class BidTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('bids', function (Blueprint $table) {
+        Schema::create('b', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title', 50)->nullable(true);
             $table->string('name', 50)->nullable(true);
             $table->string('femili', 50)->nullable(true);
             $table->string('phone', 50)->nullable(true);
-            $table->string('email', 50)->nullable(true);
             $table->text('description')->nullable(true);
             $table->integer('education_id')->unsigned()->index();
-
+            $table->string('ip', 50)->nullable(true);
             $table->timestamps();
         });
-        /*
-        Schema::table('bids', function (Blueprint $table) {
-            $table->foreign('edication_id')->references('id')->on('educations')->onDelete('set null');
-        }
-        );*/
     }
 
     /**
@@ -39,7 +33,6 @@ class BidTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('image');
+        Schema::dropIfExists('b');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RanameBids extends Migration
+class AddForeginsKeyForContent extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class RanameBids extends Migration
     public function up()
     {
         //
-        Schema::table('bids', function (Blueprint $table) {
-            Schema::rename('bids', 'B');
+        Schema::table('a_content', function (Blueprint $table) {
+            $table->foreign('content_id')->references('id')->on('a');
         });
     }
 
@@ -26,8 +26,9 @@ class RanameBids extends Migration
      */
     public function down()
     {
-        Schema::table('B', function (Blueprint $table) {
-            Schema::rename('B', 'bids');
+        //
+        Schema::table('a_content', function (Blueprint $table) {
+            $table->dropForeign('content_id');
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeginKeys3 extends Migration
+class AddForeginsKeyForContentB extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class AddForeginKeys3 extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('images', function (Blueprint $table) {
-            $table->foreign('main_id')->references('id')->on('main_page');
-        }
-        );
+        Schema::table('b_content', function (Blueprint $table) {
+            $table->foreign('content_id')->references('id')->on('b');
+        });
     }
 
     /**
@@ -28,7 +26,8 @@ class AddForeginKeys3 extends Migration
     public function down()
     {
         //
-
-
+        Schema::table('b_content', function (Blueprint $table) {
+            $table->dropForeign('content_id');
+        });
     }
 }

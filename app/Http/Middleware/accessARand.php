@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class accessRighsRand
+class accessARand
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,10 @@ class accessRighsRand
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->randOrganizer == 1) {
+        if (Auth::user() && Auth::user()->aOrganizer == 1) {
             return $next($request);
         }
+        //   return redirect('/');
         return abort(404);
     }
 }

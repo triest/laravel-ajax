@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeginKeyInContentTable extends Migration
+class AddForeginsKeyForEducationAContent extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddForeginKeyInContentTable extends Migration
      */
     public function up()
     {
-        Schema::table('rand_content', function (Blueprint $table) {
-            //
-            $table->integer('rand_id')->unsigned()->index();
-            $table->foreign('rand_id')->references('id')->on('a');
+        //
+        Schema::table('a', function (Blueprint $table) {
+            $table->foreign('education_id')->references('id')->on('educations');
         });
     }
 
@@ -27,8 +26,9 @@ class AddForeginKeyInContentTable extends Migration
      */
     public function down()
     {
-        Schema::table('rand_content', function (Blueprint $table) {
-            $table->dropForeign('rand_id');
+        Schema::table('a', function (Blueprint $table) {
+            $table->dropForeign('education_id');
         });
+        //
     }
 }

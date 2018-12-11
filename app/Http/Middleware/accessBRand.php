@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class accessRighsDid
+class accessBRand
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class accessRighsDid
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->didOrganizer == 1) {
+        if (Auth::user() && Auth::user()->bOrganizer == 1) {
             return $next($request);
         }
-
         return abort(404);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersRandsTable extends Migration
+class CreateBContentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateUsersRandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_rands', function (Blueprint $table) {
+        Schema::create('b_content', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('users_id')->unsigned()->index();
-            $table->integer('rands_id')->unsigned()->index();
+            $table->string('file_name', 50)->nullable(true);
+            $table->string('content_type', 50)->nullable(true);
+            $table->integer('content_id')->nullable()->unsigned()->index();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateUsersRandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_rands');
+        Schema::dropIfExists('b_content');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AAddForeginKeyToEducation extends Migration
+class AddForeginsKeyForEducationB extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AAddForeginKeyToEducation extends Migration
      */
     public function up()
     {
-        Schema::table('a', function (Blueprint $table) {
-            $table->dropColumn('education_id');
+        //
+        Schema::table('b', function (Blueprint $table) {
+            $table->foreign('education_id')->references('id')->on('educations');
         });
     }
 
@@ -25,10 +26,9 @@ class AAddForeginKeyToEducation extends Migration
      */
     public function down()
     {
-
-        Schema::table('a', function (Blueprint $table) {
-
+        //
+        Schema::table('b', function (Blueprint $table) {
+            $table->dropForeign('education_id');
         });
-
     }
 }

@@ -4,7 +4,7 @@
 
     @guest
     @else
-        <a class="btn btn-secondary" href="{{route('createB')}}" role="link">Добавить заявку</a>
+        <a class="btn btn-secondary" href="{{route('createB1')}}" role="link">Добавить заявку</a>
     @endguest
     <div class="starter-template">
         @if($dids!=null)
@@ -26,7 +26,7 @@
                         <td>{{$did->femili}}</td>
                         <td>{{$did->getEducationName()}}</td>
                         <td>{{$did->created_at}}</td>
-                        <td><a href="{{route('didDetail',['id'=>$did->id])}}">Смотреть подробно</a></td>
+                        <td><a href="{{route('bDetail',['id'=>$did->id])}}">Смотреть подробно</a></td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -14,9 +14,8 @@ Route::get('/home', 'HomeController@a')->name('home');
 
 Route::get('/mail', 'BController@sendMail')->name('mail');
 
-Route::get('a', 'AController@index')->name('a');
-Route::get('b', 'BController@index')->name('b');
-Route::get('b/{id}', 'BController@show')->name('bDetail')->middleware('accessADid');
+
+Route::get('b/{id}', 'BController@show')->name('bDetail')->middleware('accessARand');
 Route::get('a/{id}', 'AController@show')->name('aDetail')->middleware('accessBRand');
 
 Route::post('admin/makeB', 'AdminController@makeB')->name('makeB');
@@ -46,12 +45,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('main/store', 'MainController@store')->name('storeMain');
     Route::get('main/edit', 'MainController@edit')->name('editMain');
     Route::post('main/update', 'MainController@update')->name('updateMain');
+    /*   Route::get('a/create', 'AController@create')->name('createA');
+       Route::get('b/create', 'BController@create')->name('createB');*/
+    Route::get('aa/create', 'AController@create')->name('createA1');
+    Route::get('bb/create', 'BController@create')->name('createB1');
 
-    Route::get('b/create', 'BController@create')->name('createB');
     Route::post('b/store', 'BController@store')->name('storeB');
     Route::get('did2/', 'BController@store')->name('storeB');
 
     //рандомный контент
-    Route::get('a/create', 'AController@create')->name('createA');
+
     Route::post('a/store', 'AController@store')->name('storeA');
+    Route::get('a', 'AController@index')->name('a');
+    Route::get('b', 'BController@index')->name('b');
 });

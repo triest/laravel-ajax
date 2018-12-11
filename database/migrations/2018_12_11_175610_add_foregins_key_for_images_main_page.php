@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserDidTable extends Migration
+class AddForeginsKeyForImagesMainPage extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateUserDidTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_did', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->integer('did_id')->unsigned()->index();
-            $table->timestamps();
+        //
+        Schema::table('images', function (Blueprint $table) {
+            $table->foreign('main_id')->references('id')->on('main_page');
         });
     }
 
@@ -28,6 +26,9 @@ class CreateUserDidTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_did');
+        //
+        Schema::table('images', function (Blueprint $table) {
+            $table->dropForeign('main_id');
+        });
     }
 }

@@ -22,8 +22,14 @@ class AController extends Controller
     {
         //
         $user = Auth::user();
-        if ($user->randOrganizer == 1) {
+        if ($user->aOrganizer == 1) {
             $rands = A::select('id',
+                'title',
+                'name',
+                'phone',
+                'email',
+                'education_id',
+                'femili',
                 'description',
                 'created_at',
                 'updated_at')->simplePaginate(20);
@@ -84,7 +90,7 @@ class AController extends Controller
     public function show($id)
     {
         // $user = Auth::user();
-        if (Auth::user()->randOrganizer == 1) {
+        if (Auth::user()->aOrganizer == 1) {
             $item = A::select([
                 'id',
                 'title',
@@ -99,6 +105,7 @@ class AController extends Controller
         } else {
             return abort(404);
         }
+        dump($item);
         return view('a/detail')->with(['item' => $item]);
     }
 

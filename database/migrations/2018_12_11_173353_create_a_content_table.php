@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRandTable extends Migration
+class CreateAContentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateRandTable extends Migration
      */
     public function up()
     {
-        Schema::create('a', function (Blueprint $table) {
+        Schema::create('a_content', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('description')->nullable(true);
+            $table->string('file_name', 50)->nullable(true);
+            $table->string('content_type', 50)->nullable(true);
+            $table->integer('content_id')->nullable()->unsigned()->index();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateRandTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('a');
+        Schema::dropIfExists('a_content');
     }
 }

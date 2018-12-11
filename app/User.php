@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'email_verified_at',
         'admin',
-        'superAdmin'
+        'superAdmin',
+        'aOrganizer',
+        'bOrganizer'
     ];
 
     /**

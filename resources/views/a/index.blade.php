@@ -4,7 +4,7 @@
 
     @guest
     @else
-        <a class="btn btn-secondary" href="{{route('createA')}}" role="link">Добавить заявку</a>
+        <a class="btn btn-secondary" href="{{route('createA1')}}" role="link">Добавить заявку</a>
     @endguest
     @if($rands!=null)
         <table id="example" class="table table-striped table-bordered">
@@ -21,7 +21,7 @@
                     <td>{{$did->id}}</td>
                     <td>{{$did->title}}</td>
                     <td>{{$did->created_at}}</td>
-                    <td><a href="{{route('randDetail',['id'=>$did->id])}}">Смотреть подробно</a></td>
+                    <td><a href="{{route('aDetail',['id'=>$did->id])}}">Смотреть подробно</a></td>
                 </tr>
             @endforeach
 
