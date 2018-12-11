@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\B;
 use App\Education;
+use App\BContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
@@ -62,7 +63,7 @@ class BController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request);
+        //   dump($request);
 
         $ip = $request->ip();
         $did = new B();
@@ -81,8 +82,25 @@ class BController extends Controller
             ->first();
         $education->did()->save($did);
         $did->save();
-        $user = Auth::user();
-        $this->sendMail($user->email);
+        if (Input::hasFile('files')) {
+            foreach ($request->files as $key) {
+                foreach ($key as $key2) {
+                    $image_extension = $key2->getClientOriginalExtension();
+                    $type = $this->mime_content_type($image_extension);      //получпем тип загруженного файла
+                    $image_new_name = md5(microtime(true));
+                    $key2->move(public_path() . '/images/upload/',
+                        strtolower($image_new_name . '.' . $image_extension));
+                    $b_content = new BContent();
+                    $b_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту A;
+                    $b_content->content_type = $type;
+                    $b_content->save();
+                    $did->Content()->save($b_content);
+                    $did->save();
+                }
+            }
+        }
+        //$user = Auth::user();
+        //$this->sendMail($user->email);
         return Response::json(['result' => '200']);
     }
 
@@ -185,6 +203,75 @@ class BController extends Controller
                     }
                 }
             }
+        }
+    }
+
+    function mime_content_type($filename)
+    {
+
+        $mime_types = array(
+
+            'txt' => 'text/plain',
+            'htm' => 'text/html',
+            'html' => 'text/html',
+            'php' => 'text/html',
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+            'swf' => 'application/x-shockwave-flash',
+            'flv' => 'video/x-flv',
+
+            // images
+            'PNG' => 'image',
+            'png' => 'image',
+            'jpe' => 'image',
+            'jpeg' => 'image',
+            'jpg' => 'image',
+            'gif' => 'image',
+            'bmp' => 'image',
+            'ico' => 'image',
+            'tiff' => 'image',
+            'tif' => 'image',
+            'svg' => 'image',
+            'svgz' => 'image',
+
+            // archives
+            'zip' => 'application/zip',
+            'rar' => 'application/x-rar-compressed',
+            'exe' => 'application/x-msdownload',
+            'msi' => 'application/x-msdownload',
+            'cab' => 'application/vnd.ms-cab-compressed',
+
+            // audio/video
+            'mp3' => 'audio/mpeg',
+            'qt' => 'video/quicktime',
+            'mov' => 'video/quicktime',
+
+            // adobe
+            'pdf' => 'doc',
+            'psd' => 'doc',
+            'ai' => 'doc',
+            'eps' => 'doc',
+            'ps' => 'doc',
+
+            // ms office
+            'doc' => 'doc',
+            'rtf' => 'doc',
+            'xls' => 'doc',
+            'ppt' => 'doc',
+
+            // open office
+            'odt' => 'doc',
+            'ods' => 'doc',
+        );
+
+        //   $ext = strtolower(array_pop(explode('.', $filename)));
+        $ext = $filename;
+        if (array_key_exists($ext, $mime_types)) {
+            return $mime_types[$ext];
+        } else {
+            return null;
         }
     }
 }

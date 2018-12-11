@@ -15,7 +15,7 @@ class BContent extends Model
         'content_type',
         'created_at',
         'updated_at',
-        'rand_id'
+        'b_id'
     ];
 
     public function main()

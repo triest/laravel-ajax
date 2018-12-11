@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\B;
+
 use App\A;
 use App\AContent;
-use App\Image;
+use App\Education;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
@@ -47,7 +47,12 @@ class AController extends Controller
     public function create()
     {
         //
-        return view('a.create');
+        $educations = Education::select('id',
+            'name',
+            'created_at',
+            'updated_at')->get();
+
+        return view('a.create')->with(['educations' => $educations]);
     }
 
     /**
@@ -58,10 +63,23 @@ class AController extends Controller
      */
     public function store(Request $request)
     {
-        $rand = new A();
-        $rand->title = $request->title;
-        $rand->description = $request->description;
-        $rand->save();
+        $ip = $request->ip();
+        $did = new A();
+        $did->name = $request->name;
+        $did->femili = $request->femili;
+        $did->email = $request->email;
+        $did->phone = $request->phone;
+        $did->description = $request->description;
+        $did->ip = $ip;
+        $did->save();
+        $education = Education::select('id',
+            'name',
+            'created_at',
+            'updated_at')
+            ->where('id', $request->education)
+            ->first();
+        $education->did()->save($did);
+        $did->save();
         if (Input::hasFile('files')) {
             foreach ($request->files as $key) {
                 foreach ($key as $key2) {
@@ -70,14 +88,17 @@ class AController extends Controller
                     $image_new_name = md5(microtime(true));
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));
-                    $rand_content = new AContent();
-                    $rand_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту A
-                    $rand_content->content_type = $type;
-                    $rand->randContent()->save($rand_content);
-                    $rand->save();
+                    $b_content = new AContent();
+                    $b_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту A;
+                    $b_content->content_type = $type;
+                    $b_content->save();
+                    $did->Content()->save($b_content);
+                    $did->save();
                 }
             }
         }
+        //$user = Auth::user();
+        //$this->sendMail($user->email);
         return Response::json(['result' => '200']);
     }
 
