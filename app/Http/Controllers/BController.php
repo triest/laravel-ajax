@@ -10,7 +10,7 @@ use Response;
 use Auth;
 use Mail;
 
-class DidController extends Controller
+class BController extends Controller
 {
     /**
      * Display a listing of the resource.

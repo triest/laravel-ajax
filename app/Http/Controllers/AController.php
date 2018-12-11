@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\B;
 use App\A;
-use App\RandContent;
+use App\AContent;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
 use Auth;
 
-class RandController extends Controller
+class AController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -64,7 +64,7 @@ class RandController extends Controller
                     $image_new_name = md5(microtime(true));
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));
-                    $rand_content = new RandContent();
+                    $rand_content = new AContent();
                     $rand_content->file_name = $image_new_name . '.' . $image_extension;   //сохраняем и привязываем к обьекту A
                     $rand_content->content_type = $type;
                     $rand->randContent()->save($rand_content);

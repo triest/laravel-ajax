@@ -12,12 +12,12 @@ Route::get('/home', 'HomeController@a')->name('home');
 //b
 
 
-Route::get('/mail', 'DidController@sendMail')->name('mail');
+Route::get('/mail', 'BController@sendMail')->name('mail');
 
-Route::get('a', 'RandController@index')->name('a');
-Route::get('b', 'DidController@index')->name('b');
-Route::get('b/{id}', 'DidController@show')->name('bDetail')->middleware('accessADid');
-Route::get('a/{id}', 'RandController@show')->name('aDetail')->middleware('accessBRand');
+Route::get('a', 'AController@index')->name('a');
+Route::get('b', 'BController@index')->name('b');
+Route::get('b/{id}', 'BController@show')->name('bDetail')->middleware('accessADid');
+Route::get('a/{id}', 'AController@show')->name('aDetail')->middleware('accessBRand');
 
 Route::post('admin/makeB', 'AdminController@makeB')->name('makeB');
 Route::post('admin/makeA', 'AdminController@makeA')->name('makeA');
@@ -47,11 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('main/edit', 'MainController@edit')->name('editMain');
     Route::post('main/update', 'MainController@update')->name('updateMain');
 
-    Route::get('b/create', 'DidController@create')->name('createB');
-    Route::post('b/store', 'DidController@store')->name('storeB');
-    Route::get('did2/', 'DidController@store')->name('storeB');
+    Route::get('b/create', 'BController@create')->name('createB');
+    Route::post('b/store', 'BController@store')->name('storeB');
+    Route::get('did2/', 'BController@store')->name('storeB');
 
     //рандомный контент
-    Route::get('a/create', 'RandController@create')->name('createA');
-    Route::post('a/store', 'RandController@store')->name('storeA');
+    Route::get('a/create', 'AController@create')->name('createA');
+    Route::post('a/store', 'AController@store')->name('storeA');
 });

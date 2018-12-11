@@ -25,7 +25,7 @@ class A extends Model
 
     public function randContent()
     {
-        return $this->hasMany('App\RandContent');
+        return $this->hasMany('App\AContent');
     }
 
     public function users()

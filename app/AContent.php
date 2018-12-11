@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RandContent extends Model
+class AContent extends Model
 {
     //
     protected $table = 'rand_content';
