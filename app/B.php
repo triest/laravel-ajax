@@ -27,9 +27,9 @@ class B extends Model
         return $this->hasOne('App\Education', 'id', 'education_id');
     }
 
-    public function randContent()
+    public function Content()
     {
-        return $this->hasMany('App\AContent');
+        return $this->hasMany('App\BContent');
     }
 
     public function getEducationName()

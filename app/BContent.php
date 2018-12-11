@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AContent extends Model
+class BContent extends Model
 {
     //
-    protected $table = 'a_content';
+    protected $table = 'b_content';
 
     protected $fillable = [
         'id',
@@ -20,7 +20,6 @@ class AContent extends Model
 
     public function main()
     {
-        return $this->hasOne('App\A');
+        return $this->hasOne('App\B');
     }
-
 }

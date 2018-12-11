@@ -17,13 +17,18 @@ class A extends Model
      */
     protected $fillable = [
         'id',
-        'title',
+        'name',
+        'phone',
+        'email',
+        'education_id',
+        'femili',
         'description',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'ip'
     ];
 
-    public function randContent()
+    public function Content()
     {
         return $this->hasMany('App\AContent');
     }
@@ -32,4 +37,19 @@ class A extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function education()
+    {
+        return $this->hasOne('App\Education', 'id', 'education_id');
+    }
+
+
+    public function getEducationName()
+    {
+        $education = $this->education()->first();
+        $education = $education->name;
+        return $education;
+    }
+
+
 }
