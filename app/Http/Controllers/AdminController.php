@@ -44,7 +44,7 @@ class AdminController extends Controller
         if ($did == null) {
             return abort(404);
         }
-        $content = $did->randContent()->get();
+        $content = $did->Content()->get();
         return view("admin/bDetail")->with(['item' => $did, 'content' => $content]);
     }
 
@@ -58,19 +58,22 @@ class AdminController extends Controller
         if ($id == null) {
             return abort(404);
         }
-        $rand = A::select('id',
-            'id',
-            'title',
+        $did = A::select('id',
+            'name',
+            'phone',
+            'email',
+            'education_id',
+            'femili',
             'description',
             'created_at',
-            'updated_at')
+            'updated_at',
+            'ip')
             ->where('id', $id)->first();
-
-        if ($rand == null) {
+        if ($did == null) {
             return abort(404);
         }
-        $content = $rand->randContent()->get();
-        return view("admin/aDetail")->with(['item' => $rand, 'content' => $content]);
+        $content = $did->Content()->get();
+        return view("admin/aDetail")->with(['item' => $did, 'content' => $content]);
     }
 
     public function deleteDid($id)
@@ -135,7 +138,11 @@ class AdminController extends Controller
     public function randIndex(Request $request)
     {
         $rand = A::select('id',
-            'title',
+            'name',
+            'phone',
+            'email',
+            'education_id',
+            'femili',
             'description',
             'created_at',
             'updated_at')->simplePaginate(20);

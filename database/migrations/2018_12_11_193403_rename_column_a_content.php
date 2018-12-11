@@ -27,5 +27,6 @@ class RenameColumnAContent extends Migration
     public function down()
     {
         //
+
     }
 }

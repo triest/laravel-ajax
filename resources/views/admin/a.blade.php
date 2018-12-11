@@ -7,6 +7,8 @@
         <tr>
             <th scope="col">id</th>
             <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Образование</th>
             <th scope="col">Создана</th>
         </tr>
         </thead>
@@ -14,7 +16,9 @@
         @foreach($rands as $did)
             <tr>
                 <td>{{$did->id}}</td>
-                <td>{{$did->title}}</td>
+                <td>{{$did->name}}</td>
+                <td>{{$did->femili}}</td>
+                <td>{{$did->getEducationName()}}</td>
                 <td>{{$did->created_at}}</td>
                 <td><a href="{{route('showA',['id'=>$did->id])}}">Смотреть подробно</a></td>
             </tr>
