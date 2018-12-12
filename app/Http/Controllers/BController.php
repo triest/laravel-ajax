@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\B;
 use App\Education;
 use App\BContent;
+use App\Jobs\SendMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Response;
@@ -97,23 +98,24 @@ class BController extends Controller
                 }
             }
         }
+        SenMessage::dispatch("Test2 ");
         //$user = Auth::user();
         //$this->sendMail($user->email);
         return Response::json(['result' => '200']);
     }
 
-    public function sendMail($mail)
-    {
-        $testname = 'testname1';
-        Mail::send('mail.test', ['name' => $testname], function ($message) use ($mail) {
-            $message
-                ->to($mail, 'some guy')
-                ->from('sakura-testmail@sakura-city.info')
-                ->subject('Спасибо что зарегистрировались');
-        });
-        return null;
-    }
-
+    /* public function sendMail($mail)
+     {
+         $testname = 'testname1';
+         Mail::send('mail.test', ['name' => $testname], function ($message) use ($mail) {
+             $message
+                 ->to($mail, 'some guy')
+                 ->from('sakura-testmail@sakura-city.info')
+                 ->subject('Спасибо что зарегистрировались');
+         });
+         return null;
+     }
+ */
     /**
      * Display the specified resource.
      *

@@ -6,9 +6,11 @@ namespace App\Http\Controllers;
 use App\A;
 use App\AContent;
 use App\Education;
-use App\Jobs\SenMessage;
+use App\Jobs\SendMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Response;
 use Auth;
 
@@ -99,7 +101,10 @@ class AController extends Controller
         }
 
         //создайм задание на отправку почты
-        SenMessage::dispatch("Test ");
+        $user = $user = Auth::user();
+
+        $name = "A";
+        SendMessage::dispatch("Test2", $user->email, $user->name, $name);
 
         return Response::json(['result' => '200']);
     }

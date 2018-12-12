@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -27,6 +27,8 @@ return [
     | Drivers: "sync", "database", "beanstalkd", "sqs", "redis", "null"
     |
     */
+
+    'default' => env('QUEUE_CONNECTION', 'database'),
 
     'connections' => [
 
