@@ -98,9 +98,12 @@ class BController extends Controller
                 }
             }
         }
-        SenMessage::dispatch("Test2 ");
-        //$user = Auth::user();
-        //$this->sendMail($user->email);
+
+        //отправляем письмо через очереди.
+        $user = $user = Auth::user();
+        $name = "A";
+        SendMessage::dispatch("Test2", $user->email, $user->name, $name);
+
         return Response::json(['result' => '200']);
     }
 

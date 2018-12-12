@@ -7,6 +7,8 @@ use App\A;
 use App\AContent;
 use App\Education;
 use App\Jobs\SendMessage;
+use App\Jobs\SenMessagesToOrganizer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -102,9 +104,29 @@ class AController extends Controller
 
         //создайм задание на отправку почты
         $user = $user = Auth::user();
+        $event = "A";
+        // отправка сообщеня пользователю
+        SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now()->addMinutes(1));;
 
-        $name = "A";
-        SendMessage::dispatch("Test2", $user->email, $user->name, $name);
+        $users = User::select([
+            'name',
+            'email',
+            'password',
+            'email',
+            'email_verified_at',
+            'admin',
+            'superAdmin',
+            'aOrganizer',
+            'bOrganizer'
+        ])->where('aOrganizer', '=', 1)->get();
+
+        dump($users);
+
+        foreach ($users as $user) {
+            SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
+                $event)->delay(now()->addMinutes(1));
+        }
+
 
         return Response::json(['result' => '200']);
     }
