@@ -39,7 +39,9 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::post('b/store', 'BController@store')->name('storeB');
+
 Route::post('a/store', 'AController@store')->name('storeA');
+Route::get('a/store', 'AController@store')->name('storeAget');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('main/create', 'MainController@create')->name('createMain');

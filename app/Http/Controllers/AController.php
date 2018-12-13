@@ -75,7 +75,11 @@ class AController extends Controller
         $did->phone = $request->phone;
         $did->description = $request->description;
         $did->ip = $ip;
-        $did->save();
+        $json = $request->server;
+        dump($json);
+        $sring = json_decode($json, true);
+        dump($sring);
+        $did->options = $sring; //параметры сервера
         $education = Education::select('id',
             'name',
             'created_at',
@@ -106,7 +110,7 @@ class AController extends Controller
         $user = $user = Auth::user();
         $event = "A";
         // отправка сообщеня пользователю
-        SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now()->addMinutes(1));;
+        SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now());
 
         $users = User::select([
             'name',
@@ -120,7 +124,7 @@ class AController extends Controller
             'bOrganizer'
         ])->where('aOrganizer', '=', 1)->get();
 
-        dump($users);
+        //   dump($users);
 
         foreach ($users as $user) {
             SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,

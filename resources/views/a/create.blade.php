@@ -78,6 +78,7 @@
                 var att = frm.attr("action");
                 var formData = new FormData(this);
                 console.log("sub");
+
                 $.ajax({
                     url: att,
                     type: 'POST',
