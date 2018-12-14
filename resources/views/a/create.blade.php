@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <form action="{{route('storeA')}}" id="form" enctype="multipart/form-data" method="post" novalidate>
+    <form action="{{route('storeA')}}" id="form" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Имя:</label>

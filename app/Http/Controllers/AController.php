@@ -67,6 +67,8 @@ class AController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $ip = $request->ip();
         $did = new A();
         $did->name = $request->name;
