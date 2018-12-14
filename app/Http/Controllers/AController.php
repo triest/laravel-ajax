@@ -67,8 +67,14 @@ class AController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'femili' => 'required',
+            'phone' => 'required|numeric|min:18',
+            'email' => 'required|email',
+            'description' => 'required',
+            'education' => 'required|numeric'
+        ]);
         $ip = $request->ip();
         $did = new A();
         $did->name = $request->name;
