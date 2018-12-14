@@ -41,13 +41,15 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputFile">Текст заявки:</label>
-            <textarea name="description" id="description" required> {{old('description')}}</textarea>
+            <label for="exampleInputFile">Текст заявки:</label><br><br>
+            <textarea name="description" id="description" rows=11 cols=50 maxlength=250
+                      required> {{old('description')}}</textarea>
         </div>
 
 
         Образование:
-        <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education">
+        <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education"
+                required>
             @foreach($educations as $education)
                 <option value="{{$education->id}}">{{$education->name}}</option>
             @endforeach
@@ -56,7 +58,7 @@
         <table class="table table-bordered" id="dynamic_field">
             <tr>
                 <td><input type="file" name="files[]" id="filesInfo" placeholder="Enter your Name"
-                           class="form-control name_list"/></td>
+                           class="form-control name_list" required/></td>
                 <td>
                     <button type="button" name="add" id="add" onclick="return f();" class="btn btn-success">Add More
                     </button>
@@ -71,57 +73,57 @@
     </form>
     <script type="text/javascript">
 
-            $("form#form").submit(function (e) {
-                e.preventDefault();
-                var frm = $('#form');
+        $("form#form").submit(function (e) {
+            e.preventDefault();
+            var frm = $('#form');
 
-                var att = frm.attr("action");
-                var formData = new FormData(this);
-                console.log("sub");
-                $.ajax({
-                    url: att,
-                    type: 'POST',
-                    data: formData,
-                    statusCode: {
-                        200: function () {
-                            console.log("200 - Success");
-                            alert("Зайвка успешео создана!");
-                        },
-                        404: function (request, status, error) {
-                            console.log("404 - Not Found");
-                            console.log(error);
-                            alert("Ошибка. Страница не неадена!");
-                        },
-                        503: function (request, status, error) {
-                            console.log("503 - Server Problem");
-                            console.log(error);
-                            alert("Проблема сервера.");
-                        }
+            var att = frm.attr("action");
+            var formData = new FormData(this);
+            console.log("sub");
+            $.ajax({
+                url: att,
+                type: 'POST',
+                data: formData,
+                statusCode: {
+                    200: function () {
+                        console.log("200 - Success");
+                        alert("Зайвка успешео создана!");
                     },
-                    success: function (data) {
-                        //alert(data)
+                    404: function (request, status, error) {
+                        console.log("404 - Not Found");
+                        console.log(error);
+                        alert("Ошибка. Страница не неадена!");
                     },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
+                    503: function (request, status, error) {
+                        console.log("503 - Server Problem");
+                        console.log(error);
+                        alert("Проблема сервера.");
+                    }
+                },
+                success: function (data) {
+                    //alert(data)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
             });
-            $(document).ready(function () {
-                var i = 1;
-                $('#add').click(function () {
-                    i++;
-                    $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="files[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
-                });
-
-                $(document).on('click', '.btn_remove', function () {
-                    var button_id = $(this).attr("id");
-                    $('#row' + button_id + '').remove();
-                });
+        });
+        $(document).ready(function () {
+            var i = 1;
+            $('#add').click(function () {
+                i++;
+                $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="files[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" required /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
             });
 
-            function f() {
-                console.log("adding file");
-            }
+            $(document).on('click', '.btn_remove', function () {
+                var button_id = $(this).attr("id");
+                $('#row' + button_id + '').remove();
+            });
+        });
+
+        function f() {
+            console.log("adding file");
+        }
 
 
     </script>

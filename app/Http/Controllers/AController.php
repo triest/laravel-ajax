@@ -162,7 +162,8 @@ class AController extends Controller
         if ($item == null) {
             return abort(404);
         }
-        return view('a/detail')->with(['item' => $item]);
+        $content = $item->Content()->get();
+        return view('a/detail')->with(['item' => $item, 'content' => $content]);
     }
 
     /**

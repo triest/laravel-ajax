@@ -42,12 +42,14 @@
 
         <div class="form-group">
             <label for="exampleInputFile">Текст заявки:</label>
-            <textarea name="description" id="description" required> {{old('description')}}</textarea>
+            <textarea name="description" id="description" rows=11 cols=50 maxlength=250
+                      required> {{old('description')}}</textarea>
         </div>
 
 
         Образование:
-        <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education">
+        <select style="width: 200px" class="education" name="education" class="form-control input-sm" id="education"
+                required>
             @foreach($educations as $education)
                 <option value="{{$education->id}}">{{$education->name}}</option>
             @endforeach
@@ -56,7 +58,7 @@
         <table class="table table-bordered" id="dynamic_field">
             <tr>
                 <td><input type="file" name="files[]" id="filesInfo" placeholder="Enter your Name"
-                           class="form-control name_list"/></td>
+                           class="form-control name_list" required/></td>
                 <td>
                     <button type="button" name="add" id="add" onclick="return f();" class="btn btn-success">Add More
                     </button>
@@ -112,7 +114,7 @@
                 var i = 1;
                 $('#add').click(function () {
                     i++;
-                    $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="files[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                    $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="files[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" required /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
                 });
 
                 $(document).on('click', '.btn_remove', function () {

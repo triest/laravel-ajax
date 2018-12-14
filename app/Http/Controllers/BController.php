@@ -151,7 +151,8 @@ class BController extends Controller
         if ($item == null) {
             return abort(404);
         }
-        return view('b/detail')->with(['item' => $item]);
+        $content = $item->Content()->get();
+        return view('b/detail')->with(['item' => $item, 'content' => $content]);
     }
 
     /**
