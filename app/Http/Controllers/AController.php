@@ -75,11 +75,7 @@ class AController extends Controller
         $did->phone = $request->phone;
         $did->description = $request->description;
         $did->ip = $ip;
-        $json = $request->server;
-        dump($json);
-        $sring = json_decode($json, true);
-        dump($sring);
-        $did->options = $sring; //параметры сервера
+        $did->options = json_encode($request->server());
         $education = Education::select('id',
             'name',
             'created_at',
