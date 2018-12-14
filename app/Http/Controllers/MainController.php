@@ -115,9 +115,17 @@ class MainController extends Controller
      * @param  \App\Main $main
      * @return \Illuminate\Http\Response
      */
-    public function edit(Main $main)
+    public function edit(Request $request)
     {
-        //
+        $main = Main::select([
+            'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'
+        ])->first();
+
+        return view('main/edit')->with(['main' => $main]);
     }
 
     /**
@@ -129,7 +137,23 @@ class MainController extends Controller
      */
     public function update(Request $request, Main $main)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|min:2',
+            'description' => 'required|min:10',
+        ]);
+
+        $main = Main::select([
+            'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'
+        ])->first();
+
+        $main->title = $request->title;
+        $main->description = $request->description;
+        $main->save();
+        return redirect('/');
     }
 
     /**
@@ -141,5 +165,15 @@ class MainController extends Controller
     public function destroy(Main $main)
     {
         //
+    }
+
+    //check main block if exis
+    public static function existMain()
+    {
+        $main = Main::all()->first();
+        if ($main == null) {
+            return false;
+        }
+        return true;
     }
 }

@@ -33,7 +33,6 @@
                         </a><br>
                         <b> <a href="{{route('imagedetail',['id'=>$image->id])}}">подробно...</a></b>
                     </div>
-
                 @endforeach
             </div>
         </div>

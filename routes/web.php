@@ -9,11 +9,8 @@ Route::get('/', 'MainController@index')->name('main');
 
 Route::get('/home', 'HomeController@a')->name('home');
 
-//b
-
 
 Route::get('/mail', 'BController@sendMail')->name('mail');
-
 
 Route::get('b/{id}', 'BController@show')->name('bDetail')->middleware('accessBRand');
 Route::get('a/{id}', 'AController@show')->name('aDetail')->middleware('accessARand');
@@ -44,9 +41,9 @@ Route::post('a/store', 'AController@store')->name('storeA');
 Route::get('a/store', 'AController@store')->name('storeAget');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('main/create', 'MainController@create')->name('createMain');
-    Route::post('main/store', 'MainController@store')->name('storeMain');
-    Route::get('main/edit', 'MainController@edit')->name('editMain');
+    Route::get('main/create', 'MainController@create')->name('createMain')->middleware('superAdmin');
+    Route::post('main/store', 'MainController@store')->name('storeMain')->middleware('superAdmin');
+    Route::get('main/edit', 'MainController@edit')->name('editMain')->middleware('superAdmin');
     Route::post('main/update', 'MainController@update')->name('updateMain');
     Route::get('aa/create', 'AController@create')->name('createA1');
     Route::get('bb/create', 'BController@create')->name('createB1');
