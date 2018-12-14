@@ -72,6 +72,7 @@ class BController extends Controller
         $did->phone = $request->phone;
         $did->description = $request->description;
         $did->ip = $ip;
+        $did->options = json_encode($request->server());
         $did->save();
         $education = Education::select('id',
             'name',
