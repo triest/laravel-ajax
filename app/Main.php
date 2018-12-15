@@ -24,6 +24,6 @@ class Main extends Model
 
     public function images()
     {
-        return $this->hasMany('App\Image');
+        return $this->hasMany('App\Image')->orderBy('created_at');
     }
 }

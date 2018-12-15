@@ -1,3 +1,4 @@
+
 @extends('layouts.main', ['title' => 'Создать новость'])
 
 
@@ -50,7 +51,6 @@
                 i++;
                 $('#dynamic_field').append('<tr id="row' + i + '"><td><input type="file" name="image[]"  accept="image/x-png,image/gif,image/jpeg" class="form-control name_list" /></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
             });
-
             $(document).on('click', '.btn_remove', function () {
                 var button_id = $(this).attr("id");
                 $('#row' + button_id + '').remove();
@@ -65,7 +65,6 @@
     <!--delete imag script -->
     <script type='text/javascript'>
         var name;
-
         function UpdateStatus(name) {
             this.name = name.valueOf(name);
             console.log(this.name);
@@ -74,48 +73,63 @@
     </script>
 
     <script>
-        function getImages() {
-            //   document.getElementById(#images).innerHTML = "";
-            $.ajax({
-                url: 'getImages',
-                data: null,
-                type: 'get',
-                success: function (data) {
-                },
-            }).done(function (data) {
 
-                var i = 0;
-                $.each(data, function (index, subcatObj) {
-                    console.log("get mages")
-                    $('#images').append('<div class="col-md-3 col-sm-3 hero-feature"><div class="thumbnail"><img src="{{ url('images/upload/') }} ' + '/' + subcatObj.image_name + '" alt=""></div>')
-                })
-
-            });
-        }
-        window.onload = function () {
-            getImages();
-        };
     </script>
     <center>
-        <a href="changeProfile()" style="text-decoration: none;">
+        <br/><br/>
+        <div style="width:350px;height: 350px; border: 1px solid whitesmoke ;text-align: center;position: relative"
+             id="image">
+            <img width="100%" height="100%" id="preview_image" src="{{asset('images/noimage.jpg')}}"/>
+            <i id="loading" class="fa fa-spinner fa-spin fa-3x fa-fw"
+               style="position: absolute;left: 40%;top: 40%;display: none"></i>
+        </div>
+        <p>
+            <a href="javascript:changeProfile()" style="text-decoration: none;">
                 <i class="glyphicon glyphicon-edit"></i> Change
+            </a>&nbsp;&nbsp;
+            <a href="javascript:removeFile()" style="color: red;text-decoration: none;">
+                <i class="glyphicon glyphicon-trash"></i>
+                Remove
             </a>
-        <button onclick="changeProfile()">Click me</button>
-
-
+        </p>
+        <input type="file" id="file" style="display: none"/>
+        <input type="hidden" id="file_name"/>
     </center>
     <!-- JavaScripts -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/2c7a93b259.js"></script>
     <script>
+        function getImages() {
+            $("#images").html("");
+            document.getElementById("images").innerHTML = "";
+            $.ajax({
+                url: 'getImages',
+                data: null,
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                },
+            }).done(function (data) {
+                console.log(data);
+                var i = 0;
+                $.each(data, function (index, subcatObj) {
+                    console.log("get mages")
+                    $('#images').append('<div class="col-md-3 col-sm-3 hero-feature"><div class="thumbnail"><img height=300 src="{{ url('images/upload/') }} ' + '/' + subcatObj.image_name + '" alt=""></div>')
+
+                })
+            });
+        }
+
+        window.onload = function () {
+            getImages();
+        };
         function changeProfile() {
             $('#file').click();
         }
         $('#file').change(function () {
             if ($(this).val() != '') {
                 upload(this);
-
             }
         });
         function upload(img) {
@@ -124,7 +138,7 @@
             form_data.append('_token', '{{csrf_token()}}');
             $('#loading').css('display', 'block');
             $.ajax({
-                url: "{{url('ajax-image-upload')}}",
+                url: "{{url('main/imageUpload')}}",
                 data: form_data,
                 type: 'POST',
                 contentType: false,
@@ -135,8 +149,8 @@
                         alert(data.errors['file']);
                     }
                     else {
-                        $('#file_name').val(data);
-                        $('#preview_image').attr('src', '{{asset('uploads')}}/' + data);
+                        console.log("success");
+                        getImages();
                     }
                     $('#loading').css('display', 'none');
                 },
@@ -145,6 +159,7 @@
                     $('#preview_image').attr('src', '{{asset('images/noimage.jpg')}}');
                 }
             });
+
         }
         function removeFile() {
             if ($('#file_name').val() != '')
@@ -169,8 +184,8 @@
                         }
                     });
                 }
+            getImages();
         }
     </script>
 
 @endsection
-
