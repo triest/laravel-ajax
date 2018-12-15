@@ -124,7 +124,6 @@ class MainController extends Controller
             'created_at',
             'updated_at'
         ])->first();
-        dump($main);
         return view('main/edit')->with(['main' => $main]);
     }
 
@@ -197,5 +196,12 @@ class MainController extends Controller
             $main->images()->save($image);
             $image->save();
         }
+    }
+
+    public function deleteImage(Request $request)
+    {
+        //dump($request);
+        // die();
+        return Response::json(['result' => '200']);
     }
 }

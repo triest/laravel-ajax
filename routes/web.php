@@ -20,6 +20,7 @@ Route::post('admin/makeA', 'AdminController@makeA')->name('makeA');
 
 Route::post('admin/deleteB', 'AdminController@deleteUserB')->name('deleteDid');
 Route::post('admin/deleteA', 'AdminController@deleteUserA')->name('deleteRand');
+Route::post('main/imageDelete', 'MainController@deleteImage')->name('deleteImageMain');
 
 //маршруты администратора
 Route::group(['middleware' => 'admin'], function () {
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('main/update', 'MainController@update')->name('updateMain');
     Route::get('main/getImages', 'AdminController@getImages')->name('getImages');
     Route::post('main/imageUpload', 'MainController@updateImage')->name('updateImageMain');
+
 });
 
 Route::post('b/store', 'BController@store')->name('storeB');

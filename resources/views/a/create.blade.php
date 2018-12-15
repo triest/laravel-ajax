@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputFile">Текст заявки:</label>
+            <label for="exampleInputFile">Текст заявки:</label><br><br>
             <textarea name="description" id="description" rows=11 cols=50 maxlength=250
                       required> {{old('description')}}</textarea>
         </div>
@@ -80,7 +80,6 @@
             var att = frm.attr("action");
             var formData = new FormData(this);
             console.log("sub");
-
             $.ajax({
                 url: att,
                 type: 'POST',
@@ -109,7 +108,6 @@
                 processData: false
             });
         });
-
         $(document).ready(function () {
             var i = 1;
             $('#add').click(function () {

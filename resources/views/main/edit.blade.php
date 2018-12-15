@@ -1,8 +1,8 @@
-
 @extends('layouts.main', ['title' => 'Создать новость'])
 
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <form action="{{route('updateMain')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
@@ -24,17 +24,10 @@
         </div>
         <br>
         <br>
+        <a href="javascript:changeProfile()" style="text-decoration: none;">
+            Загрузить файл.
+        </a>
 
-        <table class="table table-bordered" id="dynamic_field">
-            <tr>
-                <td><input type="file" name="image[]" placeholder="Enter your Name" class="form-control name_list"
-                    />
-                </td>
-                <td>
-                    <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
-                </td>
-            </tr>
-        </table>
 
         <div id="images">
 
@@ -65,6 +58,7 @@
     <!--delete imag script -->
     <script type='text/javascript'>
         var name;
+
         function UpdateStatus(name) {
             this.name = name.valueOf(name);
             console.log(this.name);
@@ -115,8 +109,16 @@
                 var i = 0;
                 $.each(data, function (index, subcatObj) {
                     console.log("get mages")
-                    $('#images').append('<div class="col-md-3 col-sm-3 hero-feature"><div class="thumbnail"><img height=300 src="{{ url('images/upload/') }} ' + '/' + subcatObj.image_name + '" alt=""></div>')
-
+                    $('#images').append('<div class="col-md-3 col-sm-3 hero-feature"><div class="thumbnail"><img height=300 src="{{ url('images/upload/') }} '
+                        + '/' + subcatObj.image_name + '" alt="">'
+                        + '</div>')
+                    var button = document.createElement('input');
+                    // SET INPUT ATTRIBUTE 'type' AND 'value'.
+                    button.setAttribute('type', 'button');
+                    button.setAttribute('value', 'Read Table Data');
+                    // ADD THE BUTTON's 'onclick' EVENT.
+                    button.setAttribute('onclick', 'GetTableValues(' + subcatObj.id + ')');
+                    $('#images').append(button);
                 })
             });
         }
@@ -124,14 +126,62 @@
         window.onload = function () {
             getImages();
         };
+
+        function GetTableValues(item) {
+            console.log(item)
+            console.log("test function");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers:
+                    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+            $.ajax({
+                url: '/main/imageDelete',
+                type: 'POST',
+                data: 'foo=' + item,
+                statusCode: {
+                    200: function () {
+                        console.log("200 - Success");
+                        alert("Зайвка успешео создана!");
+                    },
+                    404: function (request, status, error) {
+                        console.log("404 - Not Found");
+                        console.log(error);
+                        alert("Ошибка. Страница не неадена!");
+                    },
+                    503: function (request, status, error) {
+                        console.log("503 - Server Problem");
+                        console.log(error);
+                        alert("Проблема сервера.");
+                    }
+                },
+                success: function (data) {
+                    //alert(data)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+
+        function test() {
+            comsole.log("test");
+        }
+
         function changeProfile() {
             $('#file').click();
         }
+
         $('#file').change(function () {
             if ($(this).val() != '') {
                 upload(this);
             }
         });
+
+        function removeFile2() {
+            console.log('test2')
+        }
+
         function upload(img) {
             var form_data = new FormData();
             form_data.append('file', img.files[0]);
@@ -149,7 +199,6 @@
                         alert(data.errors['file']);
                     }
                     else {
-                        console.log("success");
                         getImages();
                     }
                     $('#loading').css('display', 'none');
@@ -161,6 +210,7 @@
             });
 
         }
+
         function removeFile() {
             if ($('#file_name').val() != '')
                 if (confirm('Are you sure want to remove profile picture?')) {
@@ -175,12 +225,40 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            $('#preview_image').attr('src', '{{asset('images/noimage.jpg')}}');
-                            $('#file_name').val('');
-                            $('#loading').css('display', 'none');
+                            // $('#preview_image').attr('src', '{{asset('images/noimage.jpg')}}');
+                            // $('#file_name').val('');
+                            //  $('#loading').css('display', 'none');
+                            getImages();
                         },
                         error: function (xhr, status, error) {
-                            alert(xhr.responseText);
+                            // alert(xhr.responseText);
+                        }
+                    });
+                }
+            getImages();
+        }
+
+        function removeFile3() {
+            if ($('#file_name').val() != '')
+                if (confirm('Are you sure want to remove profile picture?')) {
+                    $('#loading').css('display', 'block');
+                    var form_data = new FormData();
+                    form_data.append('_method', 'DELETE');
+                    form_data.append('_token', '{{csrf_token()}}');
+                    $.ajax({
+                        url: "ajax-remove-image/" + $('#file_name').val(),
+                        data: form_data,
+                        type: 'POST',
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            // $('#preview_image').attr('src', '{{asset('images/noimage.jpg')}}');
+                            // $('#file_name').val('');
+                            //  $('#loading').css('display', 'none');
+                            getImages();
+                        },
+                        error: function (xhr, status, error) {
+                            // alert(xhr.responseText);
                         }
                     });
                 }
