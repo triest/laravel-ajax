@@ -75,54 +75,34 @@
 
     <script>
         function getImages() {
-            // $("#body").remove();
-            $("#example2").find("tr:not(:first)").remove();
-            console.log("f")
+            //   document.getElementById(#images).innerHTML = "";
             $.ajax({
                 url: 'getImages',
                 data: null,
                 type: 'get',
                 success: function (data) {
-                    console.log(data);
                 },
             }).done(function (data) {
-                console.log(data);
+
                 var i = 0;
                 $.each(data, function (index, subcatObj) {
-                    //  console.log(subcatObj.image_name);
-                    //  $('#images').append(subcatObj.image_name+'<br>');
-                    // newImg = "<img src='images/upload/" + itemID+">";
                     console.log("get mages")
                     $('#images').append('<div class="col-md-3 col-sm-3 hero-feature"><div class="thumbnail"><img src="{{ url('images/upload/') }} ' + '/' + subcatObj.image_name + '" alt=""></div>')
-                    // $('#images').append(newImg);
                 })
 
             });
         }
-
         window.onload = function () {
             getImages();
         };
     </script>
     <center>
-        <br/><br/>
-        <div style="width:350px;height: 350px; border: 1px solid whitesmoke ;text-align: center;position: relative"
-             id="image">
-            <img width="100%" height="100%" id="preview_image" src="{{asset('images/noimage.jpg')}}"/>
-            <i id="loading" class="fa fa-spinner fa-spin fa-3x fa-fw"
-               style="position: absolute;left: 40%;top: 40%;display: none"></i>
-        </div>
-        <p>
-            <a href="javascript:changeProfile()" style="text-decoration: none;">
+        <a href="changeProfile()" style="text-decoration: none;">
                 <i class="glyphicon glyphicon-edit"></i> Change
-            </a>&nbsp;&nbsp;
-            <a href="javascript:removeFile()" style="color: red;text-decoration: none;">
-                <i class="glyphicon glyphicon-trash"></i>
-                Remove
             </a>
-        </p>
-        <input type="file" id="file" style="display: none"/>
-        <input type="hidden" id="file_name"/>
+        <button onclick="changeProfile()">Click me</button>
+
+
     </center>
     <!-- JavaScripts -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -132,21 +112,19 @@
         function changeProfile() {
             $('#file').click();
         }
-
         $('#file').change(function () {
             if ($(this).val() != '') {
                 upload(this);
 
             }
         });
-
         function upload(img) {
             var form_data = new FormData();
             form_data.append('file', img.files[0]);
             form_data.append('_token', '{{csrf_token()}}');
             $('#loading').css('display', 'block');
             $.ajax({
-                url: "{{url('main/imageUpload')}}",
+                url: "{{url('ajax-image-upload')}}",
                 data: form_data,
                 type: 'POST',
                 contentType: false,
@@ -157,8 +135,6 @@
                         alert(data.errors['file']);
                     }
                     else {
-                        console.log("success");
-                        console.log(data);
                         $('#file_name').val(data);
                         $('#preview_image').attr('src', '{{asset('uploads')}}/' + data);
                     }
@@ -169,9 +145,7 @@
                     $('#preview_image').attr('src', '{{asset('images/noimage.jpg')}}');
                 }
             });
-            getImages();
         }
-
         function removeFile() {
             if ($('#file_name').val() != '')
                 if (confirm('Are you sure want to remove profile picture?')) {
