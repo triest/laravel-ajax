@@ -124,7 +124,7 @@ class MainController extends Controller
             'created_at',
             'updated_at'
         ])->first();
-
+        dump($main);
         return view('main/edit')->with(['main' => $main]);
     }
 
@@ -175,5 +175,27 @@ class MainController extends Controller
             return false;
         }
         return true;
+    }
+
+    public function updateImage(Request $request)
+    {
+        $main = Main::select([
+            'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'
+        ])->first();
+        if (Input::hasFile('file')) {
+
+            $key = $request->file;
+            $image_extension = $key->getClientOriginalExtension();
+            $image_new_name = md5(microtime(true));
+            $key->move(public_path() . '/images/upload/', strtolower($image_new_name . '.' . $image_extension));
+            $image = new Image();
+            $image->image_name = $image_new_name . '.' . $image_extension;
+            $main->images()->save($image);
+            $image->save();
+        }
     }
 }

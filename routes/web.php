@@ -33,6 +33,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/Organizer', 'AdminController@Organizer')->name('makeOrganizer')/*->middleware('superAdmin');*/
     ;
     Route::get('admin/getUsers', 'AdminController@getUsers')->name('getUsers');
+    Route::get('main/create', 'MainController@create')->name('createMain')->middleware('superAdmin');
+    Route::post('main/store', 'MainController@store')->name('storeMain')->middleware('superAdmin');
+    Route::get('main/edit', 'MainController@edit')->name('editMain')->middleware('superAdmin');
+    Route::post('main/update', 'MainController@update')->name('updateMain');
+    Route::get('main/getImages', 'AdminController@getImages')->name('getImages');
+    Route::post('main/imageUpload', 'MainController@updateImage')->name('updateImageMain');
 });
 
 Route::post('b/store', 'BController@store')->name('storeB');
@@ -41,10 +47,7 @@ Route::post('a/store', 'AController@store')->name('storeA');
 Route::get('a/store', 'AController@store')->name('storeAget');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('main/create', 'MainController@create')->name('createMain')->middleware('superAdmin');
-    Route::post('main/store', 'MainController@store')->name('storeMain')->middleware('superAdmin');
-    Route::get('main/edit', 'MainController@edit')->name('editMain')->middleware('superAdmin');
-    Route::post('main/update', 'MainController@update')->name('updateMain');
+
     Route::get('aa/create', 'AController@create')->name('createA1');
     Route::get('bb/create', 'BController@create')->name('createB1');
 

@@ -10,6 +10,8 @@ use App\Education;
 use Illuminate\Support\Facades\Input;
 use File;
 use Response;
+use App\Image;
+use App\Main;
 
 class AdminController extends Controller
 {
@@ -193,6 +195,22 @@ class AdminController extends Controller
         $user->bOrganizer = 0;
         $user->save();
         return Response::json(['result' => '200']);
+    }
+
+    public function getImages(Request $request)
+    {
+        $main = Main::select([
+            'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'
+        ])->first();
+        if ($main != null) {
+            $images = $main->images()->get();
+        }
+
+        return Response::json($images);
     }
 
 }

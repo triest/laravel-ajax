@@ -2,15 +2,6 @@
 
 @section('content')
 
-    @guest
-    @else
-        <?php if (\App\Http\Controllers\MainController::existMain() == false and Auth::user()->isSuperAdmin() == true){ ?>
-        <a class="btn btn-secondary" href="{{route('createMain')}}" role="link">Добавить блок</a>
-        <?php ;} elseif (\App\Http\Controllers\MainController::existMain() == true and Auth::user()->isSuperAdmin() == true) { ?>
-        <a class="btn btn-secondary" href="{{route('editMain')}}" role="link">Редактировать</a>
-
-        <?php }  ?>
-    @endguest
     @if ($main!=null)
         <div class="row align-items-center justify-content-center">
             <div class="starter-template">
