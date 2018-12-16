@@ -38,6 +38,9 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * @return bool
+     */
     public function isSuperAdmin()
     {
         if ($this->superAdmin == 1) {
@@ -46,6 +49,9 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isAdmin()
     {
         if ($this->admin == 1) {
@@ -54,11 +60,17 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function rand()
     {
         return $this->belongsToMany(A::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function dids()
     {
         return $this->belongsToMany(B::class);

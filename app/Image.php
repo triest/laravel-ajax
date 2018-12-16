@@ -17,6 +17,9 @@ class Image extends Model
         'updated_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function main()
     {
         return $this->hasOne('App\Main');

@@ -28,22 +28,34 @@ class A extends Model
         'ip'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function Content()
     {
         return $this->hasMany('App\AContent');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function education()
     {
         return $this->hasOne('App\Education', 'id', 'education_id');
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasOne|mixed|null|object
+     */
     public function getEducationName()
     {
         $education = $this->education()->first();

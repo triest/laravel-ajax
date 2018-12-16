@@ -18,6 +18,9 @@ class AContent extends Model
         'rand_id'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function main()
     {
         return $this->hasOne('App\A');

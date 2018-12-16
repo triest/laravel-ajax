@@ -22,6 +22,9 @@ class Main extends Model
         'updated_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function images()
     {
         return $this->hasMany('App\Image')->orderBy('created_at');

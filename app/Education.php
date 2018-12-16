@@ -16,6 +16,9 @@ class Education extends Model
         'updated_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function did()
     {
         return $this->hasMany('App\B');

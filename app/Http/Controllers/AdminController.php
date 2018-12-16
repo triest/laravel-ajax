@@ -78,6 +78,10 @@ class AdminController extends Controller
         return view("admin/aDetail")->with(['item' => $did, 'content' => $content]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
     public function deleteDid($id)
     {
         if ($id == null) {
@@ -91,6 +95,10 @@ class AdminController extends Controller
         return redirect('admin');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
     public function deleteRand($id)
     {
         if ($id == null) {
@@ -123,6 +131,10 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function didIndex(Request $request)
     {
         $dids = B::select('id',
@@ -137,6 +149,10 @@ class AdminController extends Controller
         return view("admin/b")->with(['dids' => $dids]);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function randIndex(Request $request)
     {
         $rand = A::select('id',
@@ -152,12 +168,21 @@ class AdminController extends Controller
     }
 
     //назначить организаторов
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function Organizer(Request $request)
     {
         $users = User::all();
         return view('admin/makeOrganizer')->with(['users' => $users]);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return json
+     */
     public function getUsers(Request $request)
     {
         $users = User::all();
@@ -165,6 +190,10 @@ class AdminController extends Controller
         return Response::json($users);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
     public function makeB(Request $request)
     {
         $user = User::find($request->id)->first();
@@ -173,6 +202,10 @@ class AdminController extends Controller
         return Response::json(['result' => '200']);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return json
+     */
     public function makeA(Request $request)
     {
         $user = User::find($request->id)->first();
@@ -181,6 +214,10 @@ class AdminController extends Controller
         return Response::json(['result' => '200']);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
     public function deleteUserB(Request $request)
     {
         $user = User::find($request->id)->first();
@@ -189,6 +226,10 @@ class AdminController extends Controller
         return Response::json(['result' => '200']);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
     public function deleteUserA(Request $request)
     {
         $user = User::find($request->id)->first();
@@ -197,6 +238,10 @@ class AdminController extends Controller
         return Response::json(['result' => '200']);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
     public function getImages(Request $request)
     {
         $main = Main::select([

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\A;
 use App\AContent;
 use App\Education;
@@ -130,12 +129,10 @@ class AController extends Controller
             'bOrganizer'
         ])->where('aOrganizer', '=', 1)->get();
 
-        //   dump($users);
-
         foreach ($users as $user) {
-                    SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
-                        $event)->delay(now()->addMinutes(1));
-                }
+            SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
+                $event)->delay(now()->addMinutes(1));
+        }
         return Response::json(['result' => '200']);
     }
 
@@ -201,6 +198,11 @@ class AController extends Controller
     }
 
     //
+
+    /**
+     * @param $file
+     * @return mixed|string
+     */
     function getFileMimeType($file)
     {
         if (function_exists('finfo_file')) {
@@ -232,6 +234,11 @@ class AController extends Controller
 
 
     //возвращает тип полученного файла
+
+    /**
+     * @param $filename
+     * @return mixed|null
+     */
     function mime_content_type($filename)
     {
 

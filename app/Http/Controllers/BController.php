@@ -189,6 +189,9 @@ class BController extends Controller
         //
     }
 
+    /**
+     * @return string
+     */
     public function getIp()
     {
         foreach (array(
@@ -212,6 +215,10 @@ class BController extends Controller
         }
     }
 
+    /**
+     * @param $filename
+     * @return mixed|null
+     */
     function mime_content_type($filename)
     {
 

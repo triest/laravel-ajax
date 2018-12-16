@@ -18,6 +18,9 @@ class BContent extends Model
         'b_id'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function main()
     {
         return $this->hasOne('App\B');

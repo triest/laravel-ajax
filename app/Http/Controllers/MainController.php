@@ -167,6 +167,10 @@ class MainController extends Controller
     }
 
     //check main block if exis
+
+    /**
+     * @return bool
+     */
     public static function existMain()
     {
         $main = Main::all()->first();
@@ -176,6 +180,9 @@ class MainController extends Controller
         return true;
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     */
     public function updateImage(Request $request)
     {
         $main = Main::select([
@@ -198,6 +205,10 @@ class MainController extends Controller
         }
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
     public function deleteImage(Request $request)
     {
         $main = Main::select([
