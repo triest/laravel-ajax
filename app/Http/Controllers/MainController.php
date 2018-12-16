@@ -200,8 +200,29 @@ class MainController extends Controller
 
     public function deleteImage(Request $request)
     {
-        dump($request);
-        // die();
+        $main = Main::select([
+            'id',
+            'title',
+            'description',
+            'created_at',
+            'updated_at'
+        ])->first();
+
+        //  $image = Image::find($request->id)->first();
+        $image = Image::select([
+            'id',
+            'image_name',
+            'main_id',
+            'created_at',
+            'updated_at'
+        ])->where('id', $request->id)->first();
+        try {
+            $temp_file = base_path() . '/public/images/upload/' . $image->image_name;
+            File::Delete($temp_file);
+        } catch (\Exception $e) {
+
+        }
+        $image->delete();
         return Response::json(['result' => '200']);
     }
 }

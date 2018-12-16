@@ -35,7 +35,7 @@
         </div>
 
         <br><br>
-        <button type="submit" class="btn btn-default">Сохранить1</button>
+        <button type="submit" class="btn btn-default">Сохранить</button>
     </form>
 
     <script>
@@ -96,10 +96,8 @@
                         + '/' + subcatObj.image_name + '" alt="">'
                         + '</div>')
                     var button = document.createElement('input');
-                    // SET INPUT ATTRIBUTE 'type' AND 'value'.
                     button.setAttribute('type', 'button');
-                    button.setAttribute('value', 'Удалить');
-                    // ADD THE BUTTON's 'onclick' EVENT.
+                    button.setAttribute('value', 'Delete');
                     button.setAttribute('onclick', 'GetTableValues(' + subcatObj.id + ')');
                     $('#images').append(button);
                 })
@@ -126,6 +124,7 @@
                     console.log(data);
                 },
             });
+            getImages();
         }
 
         function test() {
