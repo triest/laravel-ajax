@@ -20,6 +20,7 @@ Route::post('admin/makeA', 'AdminController@makeA')->name('makeA');
 
 Route::post('admin/deleteB', 'AdminController@deleteUserB')->name('deleteDid');
 Route::post('admin/deleteA', 'AdminController@deleteUserA')->name('deleteRand');
+//Route::post('main/imageDelete', 'MainController@deleteImage')->name('deleteImageMain');
 Route::post('main/imageDelete', 'MainController@deleteImage')->name('deleteImageMain');
 
 //маршруты администратора

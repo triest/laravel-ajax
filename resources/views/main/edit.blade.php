@@ -35,7 +35,7 @@
         </div>
 
         <br><br>
-        <button type="submit" class="btn btn-default">Сохранить</button>
+        <button type="submit" class="btn btn-default">Сохранить1</button>
     </form>
 
     <script>
@@ -111,39 +111,20 @@
         };
 
         function GetTableValues(item) {
-            console.log(item)
-            console.log("test function");
-            var csrf_token = $('meta[name="csrf-token"]').attr('content');
-            $.ajaxSetup({
-                headers:
-                    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-            });
+            console.log(item);
+            //  console.log(item.id.value)
+            console.log("test function1");
+
             $.ajax({
+                type: "POST",
                 url: '/main/imageDelete',
-                type: 'POST',
-                data: 'foo=' + item,
-                statusCode: {
-                    200: function () {
-                        console.log("200 - Success");
-                        alert("Зайвка успешео создана!");
-                    },
-                    404: function (request, status, error) {
-                        console.log("404 - Not Found");
-                        console.log(error);
-                        alert("Ошибка. Страница не неадена!");
-                    },
-                    503: function (request, status, error) {
-                        console.log("503 - Server Problem");
-                        console.log(error);
-                        alert("Проблема сервера.");
-                    }
-                },
+                data: {id: item, _token: '{{csrf_token()}}'},
                 success: function (data) {
-                    //alert(data)
+                    console.log(data);
                 },
-                cache: false,
-                contentType: false,
-                processData: false
+                error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                },
             });
         }
 

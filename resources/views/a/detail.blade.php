@@ -37,8 +37,7 @@
         @elseif($itemContent->content_type=='video')
             <?php echo asset("/images/upload/$itemContent->file_name")?>
             <br>
-            <video height="300px" controls>
-                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
+            <video src="{{URL::asset("/images/upload/$itemContent->file_name")}}" controls>
             </video>
         @endif
     @endforeach

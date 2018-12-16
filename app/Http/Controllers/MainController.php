@@ -200,7 +200,7 @@ class MainController extends Controller
 
     public function deleteImage(Request $request)
     {
-        //dump($request);
+        dump($request);
         // die();
         return Response::json(['result' => '200']);
     }

@@ -39,11 +39,13 @@
         @elseif($itemContent->content_type=='video')
             <?php echo asset("/images/upload/$itemContent->file_name")?>
             <br>
-            <video height="300px" controls>
-                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
+            <video src="{{URL::asset("/images/upload/$itemContent->file_name")}}" height="300px" controls>
+
             </video>
         @endif
     @endforeach
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>
