@@ -116,7 +116,7 @@ class AController extends Controller
         $user = $user = Auth::user();
         $event = "A";
         // отправка сообщеня пользователю
-        // SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now());
+        SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now());
 
         $users = User::select([
             'name',
@@ -131,13 +131,11 @@ class AController extends Controller
         ])->where('aOrganizer', '=', 1)->get();
 
         //   dump($users);
-        /*
-                foreach ($users as $user) {
+
+        foreach ($users as $user) {
                     SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
                         $event)->delay(now()->addMinutes(1));
                 }
-        */
-
         return Response::json(['result' => '200']);
     }
 

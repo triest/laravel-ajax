@@ -58,7 +58,8 @@
         <table class="table table-bordered" id="dynamic_field">
             <tr>
                 <td><input type="file" name="files[]" id="filesInfo" placeholder="Enter your Name"
-                           class="form-control name_list" required/></td>
+                           class="form-control name_list" accept="image/gif,image/jpg, image/jpeg, image/png video/mp4"
+                           required/></td>
                 <td>
                     <button type="button" name="add" id="add" onclick="return f();" class="btn btn-success">Add More
                     </button>

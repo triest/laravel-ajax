@@ -53,7 +53,6 @@
     <!-- Custom styles for this template -->
     <script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.js') }}"></script>
     <link href="https://getbootstrap.com/docs/4.0/examples/carousel/carousel.css" rel="stylesheet">
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
 
 </head>
 <body>

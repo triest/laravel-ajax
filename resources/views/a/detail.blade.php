@@ -35,10 +35,13 @@
                 </div>
             </div>
         @elseif($itemContent->content_type=='video')
-            <?php echo asset("/images/upload/$itemContent->file_name")?>
             <br>
-            <video src="{{URL::asset("/images/upload/$itemContent->file_name")}}" controls>
+
+            <video width="320" height="240" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}">
             </video>
+            <br>
+            <b>Скачать ролик:</b><a href="{{URL::asset("/images/upload/$itemContent->file_name")}}">скачать</a>
         @endif
     @endforeach
     <br>
@@ -48,5 +51,6 @@
     <script>
         baguetteBox.run('.tz-gallery');
     </script>
-
+    <link href=”//vjs.zencdn.net/7.0/video-js.min.css” rel=”stylesheet”>
+    <script src=”//vjs.zencdn.net/7.0/video.min.js”></script>
 @endsection

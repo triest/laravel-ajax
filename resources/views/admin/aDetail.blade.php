@@ -14,11 +14,6 @@
     <b>Автор:</b>
     {{$item->femili}}
     {{$item->name}}
-    <br>
-    <b>Ip</b>
-    {{$item->ip}}
-    <br>
-
     <b>Описание:</b>
     <p>{{$item->description}}</p>
 
@@ -37,10 +32,8 @@
                 </div>
             </div>
         @elseif($itemContent->content_type=='video')
-            <?php echo asset("/images/upload/$itemContent->file_name")?>
-            <br>
-            <video src="{{URL::asset("/images/upload/$itemContent->file_name")}}" height="300px" controls>
-
+            <video controls>
+                <source src="{{$url}}" type="video/mp4">
             </video>
         @endif
     @endforeach
