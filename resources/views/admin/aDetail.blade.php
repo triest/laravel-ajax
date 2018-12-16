@@ -22,21 +22,28 @@
     <b>Описание:</b>
     <p>{{$item->description}}</p>
 
-    <div class="container gallery-container">
-        <div class="tz-gallery">
-            <div class="row">
-                @foreach($images as $image)
-                    <div class="col-sm-6 col-md-4">
-                        {{$image->title}} <br>
-                        <a class="lightbox" href="<?php echo asset("/images/upload/$image->image_name")?>">
-                            <img height="250" src="<?php echo asset("/images/upload/$image->image_name")?>" alt="Park">
-                        </a><br>
-                        <b> <a href="{{route('imagedetail',['id'=>$image->id])}}">подробно...</a></b>
+    @foreach($content as $itemContent)
+        @if($itemContent->content_type=='image')
+            <div class="container gallery-container">
+                <div class="tz-gallery">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <a class="lightbox" href="<?php echo asset("/images/upload/$itemContent->file_name")?>">
+                                <img height="250" src="<?php echo asset("/images/upload/$itemContent->file_name")?>"
+                                     alt="Park">
+                            </a>
+                        </div>
                     </div>
-                @endforeach
+                </div>
             </div>
-        </div>
-    </div>
+        @elseif($itemContent->content_type=='video')
+            <?php echo asset("/images/upload/$itemContent->file_name")?>
+            <br>
+            <video height="300px" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
+            </video>
+        @endif
+    @endforeach
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>

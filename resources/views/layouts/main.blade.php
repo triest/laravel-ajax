@@ -15,8 +15,6 @@
     <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
     <title>{{$title}}</title>
-
-
     <!-- Bootstrap core CSS -->
     <!--for galeray -->
     <!--end for faleray -->
@@ -110,26 +108,21 @@
                             </form>
                         </div>
                     </li>
-
                     @if(Auth::user()->isAdmin())
                         <li class="nav-item active">
                             <a class="nav-link" href="{{route('admin')}}">Панель администратора<span
                                         class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('adminB')}}">Заявки<span
-                                        class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('adminA')}}">Рандомный контент<span class="sr-only">(current)</span></a>
-                        </li>
                     @endif
+
                 @endguest
+
             </ul>
             <form class="form-inline mt-2 mt-md-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+
         </div>
     </nav>
 </header>

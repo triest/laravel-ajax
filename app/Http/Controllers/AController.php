@@ -97,6 +97,8 @@ class AController extends Controller
                 foreach ($key as $key2) {
                     $image_extension = $key2->getClientOriginalExtension();
                     $type = $this->mime_content_type($image_extension);      //получпем тип загруженного файла
+                    dump($image_extension);
+                    dump($type);
                     $image_new_name = md5(microtime(true));
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));
@@ -114,7 +116,7 @@ class AController extends Controller
         $user = $user = Auth::user();
         $event = "A";
         // отправка сообщеня пользователю
-        SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now());
+        // SendMessage::dispatch("Test2", $user->email, $user->name, $event)->delay(now());
 
         $users = User::select([
             'name',
@@ -129,12 +131,12 @@ class AController extends Controller
         ])->where('aOrganizer', '=', 1)->get();
 
         //   dump($users);
-
-        foreach ($users as $user) {
-            SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
-                $event)->delay(now()->addMinutes(1));
-        }
-
+        /*
+                foreach ($users as $user) {
+                    SenMessagesToOrganizer::dispatch("Test2", $user->name, $user->email, $did,
+                        $event)->delay(now()->addMinutes(1));
+                }
+        */
 
         return Response::json(['result' => '200']);
     }
@@ -270,9 +272,12 @@ class AController extends Controller
             'cab' => 'application/vnd.ms-cab-compressed',
 
             // audio/video
-            'mp3' => 'audio/mpeg',
-            'qt' => 'video/quicktime',
-            'mov' => 'video/quicktime',
+            'mp3' => 'audio',
+            'qt' => 'video',
+            'mov' => 'video',
+            'mp4' => 'video',
+            'wmv' => 'video',
+            'avi' => 'video',
 
             // adobe
             'pdf' => 'doc',
