@@ -45,15 +45,16 @@ class BController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $utm = $request->all();
         $educations = Education::select('id',
             'name',
             'created_at',
             'updated_at')->get();
-
-        return view('b.create')->with(['educations' => $educations]);
+        $utm2 = implode('&', $utm);
+        return view('b.create')->with(['educations' => $educations, 'utm' => $utm2]);
     }
 
     /**
@@ -81,6 +82,7 @@ class BController extends Controller
         $did->description = $request->description;
         $did->ip = $ip;
         $did->options = json_encode($request->server());
+        $did->utm = $request->utm;
         $did->save();
         $education = Education::select('id',
             'name',

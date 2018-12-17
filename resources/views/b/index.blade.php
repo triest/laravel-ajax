@@ -4,7 +4,9 @@
 
     @guest
     @else
-        <a class="btn btn-secondary" href="{{route('createB1')}}" role="link">Добавить заявку</a>
+        <a class="btn btn-secondary"
+           href="{{route('createB1')}}?utm_source=main2&utm_medium=banner2&utm_company=myCompany2" role="link">Добавить
+            заявку</a>
     @endguest
     <div class="starter-template">
         @if($items!=null)
