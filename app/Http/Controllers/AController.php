@@ -85,15 +85,7 @@ class AController extends Controller
             'description' => 'required',
             'education' => 'required|numeric'
         ]);
-
-        dump($request);
         $url = $request->url();
-        die();
-
-        dump($source);
-        dump($medium);
-        dump($company);
-        die();
         $ip = $request->ip();
         $did = new A();
         $did->name = $request->name;
@@ -103,6 +95,9 @@ class AController extends Controller
         $did->description = $request->description;
         $did->ip = $ip;
         $did->options = json_encode($request->server());
+
+        $utm = $request->utm_source . '&' . $request->utm_medium . '&' . $request->utm_company;
+        $did->utm = $utm;
         $education = Education::select('id',
             'name',
             'created_at',
@@ -110,7 +105,9 @@ class AController extends Controller
             ->where('id', $request->education)
             ->first();
         $education->did()->save($did);
+
         $did->save();
+
         if (Input::hasFile('files')) {
             foreach ($request->files as $key) {
                 foreach ($key as $key2) {

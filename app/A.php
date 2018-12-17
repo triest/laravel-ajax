@@ -25,7 +25,8 @@ class A extends Model
         'description',
         'created_at',
         'updated_at',
-        'ip'
+        'ip',
+        'utm'
     ];
 
     /**
