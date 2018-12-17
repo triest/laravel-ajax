@@ -12,6 +12,13 @@ use File;
 use Response;
 use App\Image;
 use App\Main;
+use App\AContent;
+use App\Jobs\SendMessage;
+use App\Jobs\SenMessagesToOrganizer;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Auth;
+
 
 class AdminController extends Controller
 {
@@ -26,9 +33,12 @@ class AdminController extends Controller
         return view("admin/index");
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
     public function showB($id)
     {
-
         if ($id == null) {
             return abort(404);
         }
@@ -41,13 +51,15 @@ class AdminController extends Controller
             'description',
             'created_at',
             'updated_at',
+            'utm',
             'ip')
             ->where('id', $id)->first();
         if ($did == null) {
             return abort(404);
         }
+        $utm = explode('&', $did->utm);
         $content = $did->Content()->get();
-        return view("admin/bDetail")->with(['item' => $did, 'content' => $content]);
+        return view("admin/bDetail")->with(['item' => $did, 'content' => $content, 'utms' => $utm]);
     }
 
 
@@ -57,9 +69,7 @@ class AdminController extends Controller
      */
     public function showA($id)
     {
-        if ($id == null) {
-            return abort(404);
-        }
+
         $did = A::select('id',
             'name',
             'phone',
@@ -69,13 +79,15 @@ class AdminController extends Controller
             'description',
             'created_at',
             'updated_at',
+            'utm',
             'ip')
             ->where('id', $id)->first();
         if ($did == null) {
             return abort(404);
         }
+        $utm = explode('&', $did->utm);
         $content = $did->Content()->get();
-        return view("admin/aDetail")->with(['item' => $did, 'content' => $content]);
+        return view("admin/aDetail")->with(['item' => $did, 'content' => $content, 'utms' => $utm]);
     }
 
     /**
@@ -254,7 +266,6 @@ class AdminController extends Controller
         if ($main != null) {
             $images = $main->images()->get();
         }
-
         return Response::json($images);
     }
 

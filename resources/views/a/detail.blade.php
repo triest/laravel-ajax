@@ -10,9 +10,11 @@
     {{$item->femili}}
     {{$item->name}}
     <br>
-    <b>Ip</b>
-    {{$item->ip}}
-    <br>
+    @if(Auth::user()->isSuperAdmin())
+        <b>Ip:</b>
+        {{$item->ip}}
+        <br>
+    @endif
 
     <b>Образование:</b>
     <p>{{$item->getEducationName()}}</p>
@@ -35,15 +37,14 @@
                 </div>
             </div>
         @elseif($itemContent->content_type=='video')
+            <?php echo asset("/images/upload/$itemContent->file_name")?>
             <br>
-
-            <video width="320" height="240" controls>
-                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}">
+            <video height="300px" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
             </video>
-            <br>
-            <b>Скачать ролик:</b><a href="{{URL::asset("/images/upload/$itemContent->file_name")}}">скачать</a>
         @endif
     @endforeach
+
     <br>
     <a class="button blue" href="{{route('a')}}" role="link">К списку заявок</a>
 

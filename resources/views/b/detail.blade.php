@@ -10,9 +10,11 @@
     {{$item->femili}}
     {{$item->name}}
     <br>
-    <b>Ip</b>
-    {{$item->ip}}
-    <br>
+    @if(Auth::user()->isSuperAdmin())
+        <b>Ip:</b>
+        {{$item->ip}}
+        <br>
+    @endif
 
     <b>Образование:</b>
     <p>{{$item->getEducationName()}}</p>
@@ -34,6 +36,12 @@
                     </div>
                 </div>
             </div>
+        @elseif($itemContent->content_type=='video')
+            <?php echo asset("/images/upload/$itemContent->file_name")?>
+            <br>
+            <video height="300px" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
+            </video>
         @endif
     @endforeach
 

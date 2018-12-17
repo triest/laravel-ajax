@@ -14,6 +14,16 @@
     <b>Автор:</b>
     {{$item->femili}}
     {{$item->name}}
+    @if(Auth::user()->isSuperAdmin())
+        <br><b>Ip:</b>
+        {{$item->ip}}
+        <br>
+        <b>Utm метки:</b>
+        @foreach($utms as $utm)
+            {{$utm}}
+        @endforeach
+    @endif
+    <br>
     <b>Описание:</b>
     <p>{{$item->description}}</p>
 
@@ -32,8 +42,9 @@
                 </div>
             </div>
         @elseif($itemContent->content_type=='video')
-            <video controls>
-                <source src="{{$url}}" type="video/mp4">
+            <br>
+            <video height="300px" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
             </video>
         @endif
     @endforeach

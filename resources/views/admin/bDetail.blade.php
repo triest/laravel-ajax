@@ -14,11 +14,16 @@
     <b>Автор:</b>
     {{$item->femili}}
     {{$item->name}}
+    @if(Auth::user()->isSuperAdmin())
+        <br><b>Ip:</b>
+        {{$item->ip}}
+        <br>
+        <b>Utm метки:</b>
+        @foreach($utms as $utm)
+            {{$utm}}
+        @endforeach
+    @endif
     <br>
-    <b>Ip</b>
-    {{$item->ip}}
-    <br>
-
     <b>Описание:</b>
     <p>{{$item->description}}</p>
 
@@ -26,16 +31,25 @@
         @if($itemContent->content_type=='image')
             <div class="container gallery-container">
                 <div class="tz-gallery">
-                    <div class="col-sm-6 col-md-4">
-                        <a class="lightbox" href="<?php echo asset("/images/upload/$itemContent->file_name")?>">
-                            <img height="250" src="<?php echo asset("/images/upload/$itemContent->file_name")?>"
-                                 alt="Park">
-                        </a>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <a class="lightbox" href="<?php echo asset("/images/upload/$itemContent->file_name")?>">
+                                <img height="250" src="<?php echo asset("/images/upload/$itemContent->file_name")?>"
+                                     alt="Park">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+        @elseif($itemContent->content_type=='video')
+            <br>
+            <video height="300px" controls>
+                <source src="{{URL::asset("/images/upload/$itemContent->file_name")}}" type="video/mp4">
+            </video>
         @endif
     @endforeach
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>
