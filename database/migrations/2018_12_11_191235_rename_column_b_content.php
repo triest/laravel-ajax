@@ -28,7 +28,7 @@ class RenameColumnBContent extends Migration
     {
         //
         Schema::table('b_content', function (Blueprint $table) {
-            $table->renameColumn('b_id', 'content_id');
+            $table->renameColumn('b_content', 'content_id');
         });
     }
 }

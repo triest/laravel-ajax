@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEmailToATable extends Migration
+class RenameColumnBContent2 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddEmailToATable extends Migration
      */
     public function up()
     {
-        Schema::table('a', function (Blueprint $table) {
-            //
-            $table->string('email')->nullable();
+        //
+        Schema::table('b_content', function (Blueprint $table) {
+            $table->renameColumn('b_content', 'b_id');
         });
     }
 
@@ -26,9 +26,9 @@ class AddEmailToATable extends Migration
      */
     public function down()
     {
-        Schema::table('a', function (Blueprint $table) {
-            //
-            $table->dropColumn('email');
+        //
+        Schema::table('b_content', function (Blueprint $table) {
+            $table->renameColumn('b_id', 'b_content');
         });
     }
 }
