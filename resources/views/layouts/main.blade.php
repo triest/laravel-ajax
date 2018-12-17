@@ -70,15 +70,14 @@
                     <a class="nav-link" href="{{route('main')}}">Главная<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-
-                </li>
-                <li class="nav-item active">
                     <a class="nav-link" href="{{route('a')}}">A<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('b')}}">B<span class="sr-only">(current)</span></a>
                 </li>
 
+            </ul>
+            <ul class="navbar-nav">
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -107,20 +106,10 @@
                             </form>
                         </div>
                     </li>
-                    @if(Auth::user()->isAdmin())
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('admin')}}">Панель администратора<span
-                                        class="sr-only">(current)</span></a>
-                        </li>
-                    @endif
 
                 @endguest
-
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
 
         </div>
     </nav>

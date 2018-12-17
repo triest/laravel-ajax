@@ -35,8 +35,10 @@
         </div>
 
         <br><br>
-        <button type="submit" class="btn btn-default">Сохранить</button>
+        <button type="submit" class="btn-primaryt">Сохранить</button>
     </form>
+
+    <button class="button btm-" href="{{route('admin')}}">Назад</button>
 
     <script>
         $(document).ready(function () {
@@ -179,7 +181,7 @@
                 if (confirm('Are you sure want to remove profile picture?')) {
                     $('#loading').css('display', 'block');
                     var form_data = new FormData();
-                    form_data.append('_method', 'DELETE');
+                    form_data.append('_method', 'Удалить');
                     form_data.append('_token', '{{csrf_token()}}');
                     $.ajax({
                         url: "ajax-remove-image/" + $('#file_name').val(),
