@@ -19,5 +19,7 @@ class UsersTableSeeder extends Seeder
             'admin' => 1,
             'superAdmin' => 1
         ]);
+
+
     }
 }

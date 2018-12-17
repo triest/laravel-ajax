@@ -49,7 +49,7 @@
         @endif
     @endforeach
 
-
+    <a class="button blue" href="{{route('adminA')}}" role="link">К списку заявок</a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>

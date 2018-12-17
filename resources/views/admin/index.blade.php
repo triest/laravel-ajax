@@ -8,7 +8,7 @@
 
     <br><br><br>
     <?php if (\App\Http\Controllers\MainController::existMain() == false and Auth::user()->isSuperAdmin() == true){ ?>
-    <a class="btn btn-secondary" href="{{route('createMain')}}" role="link">Добавить блок</a>
+    <a class="btn btn-secondary" href="{{route('createMain')}}" role="link">Добавить контент на главную страницу</a>
     <?php ;} elseif (\App\Http\Controllers\MainController::existMain() == true and Auth::user()->isSuperAdmin() == true) { ?>
     <a class="btn btn-secondary" href="{{route('editMain')}}" role="link">Редактировать контент главной страницы</a>
 

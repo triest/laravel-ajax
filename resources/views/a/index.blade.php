@@ -28,7 +28,7 @@
                         <td>{{$item->femili}}</td>
                         <td>{{$item->getEducationName()}}</td>
                         <td>{{$item->created_at}}</td>
-                        <td><a href="{{route('aDetail',['id'=>$item->id])}}">Смотреть подробно</a></td>
+                        <td><a href="{{route('aDetail',['id'=>$item->id])}}">Детали</a></td>
                     </tr>
                 @endforeach
                 </tbody>

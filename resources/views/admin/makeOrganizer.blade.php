@@ -54,20 +54,20 @@
                     rand.type = 'button'
                     this.i = subcatObj.id;
                     if (subcatObj.aOrganizer == 0) {
-                        did.value = 'Назначить куратором ';
+                        did.value = 'Назначить организатором ';
                         did.addEventListener('click', () => makeDid(subcatObj));
                     }
                     else {
-                        did.value = 'Снять куратора';
+                        did.value = 'Снять';
                         did.addEventListener('click', () => deleteDid(subcatObj));
                     }
                     if (subcatObj.bOrganizer == 0) {
-                        rand.value = 'Назначить куратором ';
+                        rand.value = 'Назначить организатором';
                         rand.addEventListener('click', () => makeRand(subcatObj));
 
                     }
                     else {
-                        rand.value = 'Снять куратора';
+                        rand.value = 'Снять';
                         rand.addEventListener('click', () => deleteRand(subcatObj));
 
                     }

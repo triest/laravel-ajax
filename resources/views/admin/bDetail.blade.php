@@ -14,7 +14,8 @@
     <b>Автор:</b>
     {{$item->femili}}
     {{$item->name}}
-    @if(Auth::user()->isSuperAdmin())
+
+    @if(Auth::user()->isSuperAdmin()==1)
         <br><b>Ip:</b>
         {{$item->ip}}
         <br>
@@ -49,7 +50,7 @@
         @endif
     @endforeach
 
-
+    <a class="button blue" href="{{route('adminB')}}" role="link">К списку заявок</a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>

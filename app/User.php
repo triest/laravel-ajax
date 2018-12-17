@@ -43,9 +43,11 @@ class User extends Authenticatable
      */
     public function isSuperAdmin()
     {
+        //  echo $this->superAdmin;
         if ($this->superAdmin == 1) {
             return true;
         }
+
         return false;
     }
 
