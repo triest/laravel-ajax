@@ -67,6 +67,10 @@
             </tr>
         </table>
 
+        <!--hiden field for utm -->
+        <input type="hidden" value="{{$utm_source}}" name="utm_source" id="utm_source">
+        <input type="hidden" value="{{$utm_medium}}" name="utm_medium" id="utm_medium">
+        <input type="hidden" value="{{$utm_company}}" name="utm_company" id="utm_company">
         <br><br>
         <!-- <button type="submit" class="btn btn-default">Создать текст</button> -->
         <input type="submit">

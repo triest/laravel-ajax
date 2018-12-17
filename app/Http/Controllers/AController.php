@@ -50,12 +50,23 @@ class AController extends Controller
     public function create()
     {
         //
+        $source = Input::get('utm_source');
+        dump($source);
+        $medium = Input::get('utm_medium');
+        dump($medium);
+        $company = Input::get('utm_camping');
+        dump($company);
         $educations = Education::select('id',
             'name',
             'created_at',
             'updated_at')->get();
 
-        return view('a.create')->with(['educations' => $educations]);
+        return view('a.create')->with([
+            'educations' => $educations,
+            'utm_source' => $source,
+            'utm_medium' => $medium,
+            'utm_company' => $company
+        ]);
     }
 
     /**
@@ -74,6 +85,15 @@ class AController extends Controller
             'description' => 'required',
             'education' => 'required|numeric'
         ]);
+
+        dump($request);
+        $url = $request->url();
+        die();
+
+        dump($source);
+        dump($medium);
+        dump($company);
+        die();
         $ip = $request->ip();
         $did = new A();
         $did->name = $request->name;
