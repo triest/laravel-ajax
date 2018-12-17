@@ -47,25 +47,17 @@ class AController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        $source = Input::get('utm_source');
-        dump($source);
-        $medium = Input::get('utm_medium');
-        dump($medium);
-        $company = Input::get('utm_camping');
-        dump($company);
+        $utm = $request->all();
         $educations = Education::select('id',
             'name',
             'created_at',
             'updated_at')->get();
-
+        $utm2 = implode('&', $utm);
         return view('a.create')->with([
             'educations' => $educations,
-            'utm_source' => $source,
-            'utm_medium' => $medium,
-            'utm_company' => $company
+            'utm' => $utm2
         ]);
     }
 
@@ -85,7 +77,6 @@ class AController extends Controller
             'description' => 'required',
             'education' => 'required|numeric'
         ]);
-        $url = $request->url();
         $ip = $request->ip();
         $did = new A();
         $did->name = $request->name;
@@ -95,9 +86,7 @@ class AController extends Controller
         $did->description = $request->description;
         $did->ip = $ip;
         $did->options = json_encode($request->server());
-
-        $utm = $request->utm_source . '&' . $request->utm_medium . '&' . $request->utm_company;
-        $did->utm = $utm;
+        $did->utm = $request->utm;
         $education = Education::select('id',
             'name',
             'created_at',
@@ -105,7 +94,6 @@ class AController extends Controller
             ->where('id', $request->education)
             ->first();
         $education->did()->save($did);
-
         $did->save();
 
         if (Input::hasFile('files')) {
