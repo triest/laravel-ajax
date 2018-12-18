@@ -101,8 +101,6 @@ class AController extends Controller
                 foreach ($key as $key2) {
                     $image_extension = $key2->getClientOriginalExtension();
                     $type = $this->mime_content_type($image_extension);      //получпем тип загруженного файла
-                    dump($image_extension);
-                    dump($type);
                     $image_new_name = md5(microtime(true));
                     $key2->move(public_path() . '/images/upload/',
                         strtolower($image_new_name . '.' . $image_extension));

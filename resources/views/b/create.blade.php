@@ -91,6 +91,7 @@
                     200: function () {
                         console.log("200 - Success");
                         alert("Зайвка успешео создана!");
+                        document.getElementById("form").reset();
                     },
                     404: function (request, status, error) {
                         console.log("404 - Not Found");

@@ -84,6 +84,7 @@ class BController extends Controller
         $did->options = json_encode($request->server());
         $did->utm = $request->utm;
         $did->save();
+        $did->save();
         $education = Education::select('id',
             'name',
             'created_at',

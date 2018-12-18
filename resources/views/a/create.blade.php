@@ -83,7 +83,6 @@
 
             var att = frm.attr("action");
             var formData = new FormData(this);
-            console.log("sub");
             $.ajax({
                 url: att,
                 type: 'POST',
@@ -92,6 +91,7 @@
                     200: function () {
                         console.log("200 - Success");
                         alert("Зайвка успешео создана!");
+                        document.getElementById("form").reset();
                     },
                     404: function (request, status, error) {
                         console.log("404 - Not Found");
